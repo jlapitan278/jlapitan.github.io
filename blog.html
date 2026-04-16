@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Blog by Josh — writing about cybersecurity, detection engineering, and the projects I'm building." />
+  <title>Blog — Josh</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ============================================================
+       Navigation
+       ============================================================ -->
+  <nav class="nav">
+    <div class="container nav-inner">
+      <a class="nav-logo" href="index.html">josh<span>.</span>dev</a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="projects.html">Projects</a></li>
+        <li><a href="blog.html" class="active">Blog</a></li>
+      </ul>
+    </div>
+  </nav>
+
+
+  <main>
+
+    <!-- ============================================================
+         Page Header
+         ============================================================ -->
+    <div class="page-header">
+      <div class="container">
+        <span class="label">// writing</span>
+        <h1 style="margin-top: 0.6rem;">Blog</h1>
+        <p>
+          Notes on cybersecurity, detection engineering, and the projects
+          I'm building. Written for practitioners, not press releases.
+        </p>
+      </div>
+    </div>
+
+    <hr class="divider" />
+
+
+    <!-- ============================================================
+         Post List
+         Each <a class="post-item"> is one blog post.
+         To add a post: duplicate any post-item block, update the
+         href to the post's HTML file, and edit the metadata + text.
+         ============================================================ -->
+    <section class="section">
+      <div class="container">
+
+        <div class="post-list">
+
+          <!-- --------------------------------------------------
+               Post 1
+               href: link to the post's HTML file
+               date: ISO format YYYY-MM-DD looks cleanest
+               post-category: short topic label
+               post-title: headline
+               post-excerpt: 1–2 sentence summary
+          -------------------------------------------------- -->
+          <a class="post-item" href="post-template.html">
+            <div class="post-meta">
+              <span>2025-03-22</span>
+              <span class="separator">·</span>
+              <span class="post-category">Detection Engineering</span>
+            </div>
+            <div class="post-title">
+              Writing Detection Rules That Actually Fire in Production
+            </div>
+            <p class="post-excerpt">
+              Most detection rules look great in the lab and die quietly in
+              prod. Here's how I approach writing rules that survive contact
+              with real data — and how to tune them without drowning in
+              false positives.
+            </p>
+          </a>
+
+          <!-- --------------------------------------------------
+               Post 2
+          -------------------------------------------------- -->
+          <a class="post-item" href="post-template.html">
+            <div class="post-meta">
+              <span>2025-02-10</span>
+              <span class="separator">·</span>
+              <span class="post-category">Career</span>
+            </div>
+            <div class="post-title">
+              From MDR Analyst to Security Engineer: My Roadmap
+            </div>
+            <p class="post-excerpt">
+              After two years in managed detection and response, I mapped out
+              the gap between analyst work and security engineering — and what
+              I'm doing to close it through side projects and deliberate
+              skill-building.
+            </p>
+          </a>
+
+          <!-- --------------------------------------------------
+               Add more posts below by duplicating a post-item block.
+          -------------------------------------------------- -->
+
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+
+  <!-- ============================================================
+       Footer
+       ============================================================ -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <span class="footer-copy">&copy; 2025 Josh</span>
+      <div class="footer-links">
+        <a href="#">GitHub</a>
+        <a href="#">LinkedIn</a>
+        <a href="#">Email</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

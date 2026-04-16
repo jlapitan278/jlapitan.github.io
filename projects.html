@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Projects by Josh — security tooling, detection engineering, and automation." />
+  <title>Projects — Josh</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ============================================================
+       Navigation
+       ============================================================ -->
+  <nav class="nav">
+    <div class="container nav-inner">
+      <a class="nav-logo" href="index.html">josh<span>.</span>dev</a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="projects.html" class="active">Projects</a></li>
+        <li><a href="blog.html">Blog</a></li>
+      </ul>
+    </div>
+  </nav>
+
+
+  <main>
+
+    <!-- ============================================================
+         Page Header
+         ============================================================ -->
+    <div class="page-header">
+      <div class="container">
+        <span class="label">// work</span>
+        <h1 style="margin-top: 0.6rem;">Projects</h1>
+        <p>
+          Tools and experiments I've built around detection engineering,
+          security operations, and automation. Most are open source.
+        </p>
+      </div>
+    </div>
+
+    <hr class="divider" />
+
+
+    <!-- ============================================================
+         Projects Grid
+         ============================================================ -->
+    <section class="section">
+      <div class="container">
+
+        <div class="card-grid">
+
+          <!-- -------------------------------------------------------
+               Project 1 — SIEM Detection Library
+               Edit: card-title, card-desc, tags, and the href on <a>
+          ------------------------------------------------------- -->
+          <a class="card" href="#"> <!-- Replace # with your repo URL -->
+            <div class="card-icon">&#128272;</div>
+            <div class="card-title">SIEM Detection Library</div>
+            <p class="card-desc">
+              A curated collection of detection rules and correlation queries
+              for Splunk and Elastic SIEM. Each rule targets specific attacker
+              TTPs and is cross-referenced with MITRE ATT&amp;CK technique IDs.
+              Includes a tuning guide and false-positive notes per rule.
+            </p>
+            <div class="tag-list">
+              <span class="tag">Splunk SPL</span>
+              <span class="tag">Elastic KQL</span>
+              <span class="tag">MITRE ATT&CK</span>
+              <span class="tag">Detection Engineering</span>
+            </div>
+            <span class="card-link">View on GitHub</span>
+          </a>
+
+          <!-- -------------------------------------------------------
+               Project 2 — Alert Triage Automation
+               Edit: card-title, card-desc, tags, and the href on <a>
+          ------------------------------------------------------- -->
+          <a class="card" href="#"> <!-- Replace # with your repo URL -->
+            <div class="card-icon">&#128203;</div>
+            <div class="card-title">Alert Triage Automation</div>
+            <p class="card-desc">
+              A Python pipeline that automatically enriches incoming SOC alerts
+              with context from threat intel feeds (VirusTotal, AbuseIPDB,
+              Shodan). Outputs a structured triage summary and routes
+              high-confidence alerts to PagerDuty.
+            </p>
+            <div class="tag-list">
+              <span class="tag">Python</span>
+              <span class="tag">REST APIs</span>
+              <span class="tag">Threat Intel</span>
+              <span class="tag">SOAR</span>
+            </div>
+            <span class="card-link">View on GitHub</span>
+          </a>
+
+          <!-- -------------------------------------------------------
+               Add more project cards by duplicating the block above.
+               Remember to update the href, icon, title, desc, and tags.
+          ------------------------------------------------------- -->
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+
+  <!-- ============================================================
+       Footer
+       ============================================================ -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <span class="footer-copy">&copy; 2025 Josh</span>
+      <div class="footer-links">
+        <a href="#">GitHub</a>
+        <a href="#">LinkedIn</a>
+        <a href="#">Email</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

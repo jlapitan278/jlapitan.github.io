@@ -1,0 +1,782 @@
+/* =============================================================
+   style.css — Josh's Portfolio
+   Shared stylesheet for all pages.
+   To change the accent color, update --accent in :root below.
+   ============================================================= */
+
+
+/* ---------------------------------------------------------------
+   1. CSS Custom Properties (design tokens)
+--------------------------------------------------------------- */
+:root {
+  /* Backgrounds */
+  --bg-primary:    #0d0d0f;   /* page background */
+  --bg-secondary:  #131316;   /* nav / footer */
+  --bg-card:       #16161a;   /* card / aside backgrounds */
+  --bg-card-hover: #1e1e24;   /* card hover state */
+
+  /* Text */
+  --text-primary:   #e2e2e8;  /* body copy */
+  --text-secondary: #9898aa;  /* metadata, captions */
+  --text-muted:     #55556a;  /* placeholders, borders-adjacent */
+
+  /* Accent — change this one value to retheme the whole site */
+  --accent:       #00e5c0;               /* cyan-green terminal feel */
+  --accent-dim:   #00a88c;               /* darker variant for hover */
+  --accent-glow:  rgba(0, 229, 192, 0.10); /* subtle glow / tint */
+
+  /* Borders */
+  --border:        #22222c;
+  --border-accent: rgba(0, 229, 192, 0.25);
+
+  /* Typography */
+  --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+               'Helvetica Neue', Arial, sans-serif;
+  --font-mono: 'Cascadia Code', 'Fira Code', 'JetBrains Mono',
+               'Courier New', monospace;
+
+  /* Layout */
+  --max-width:  860px;
+  --nav-height: 62px;
+  --radius:     6px;
+  --radius-lg:  10px;
+}
+
+
+/* ---------------------------------------------------------------
+   2. Reset & Base
+--------------------------------------------------------------- */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1;
+}
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+  transition: color 0.2s ease, opacity 0.2s ease;
+}
+
+a:hover {
+  color: var(--accent-dim);
+  text-decoration: underline;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+ul {
+  list-style: none;
+}
+
+
+/* ---------------------------------------------------------------
+   3. Layout Utilities
+--------------------------------------------------------------- */
+.container {
+  width: 100%;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.section {
+  padding: 4rem 0;
+}
+
+.section + .section {
+  border-top: 1px solid var(--border);
+}
+
+
+/* ---------------------------------------------------------------
+   4. Typography
+--------------------------------------------------------------- */
+h1, h2, h3, h4 {
+  line-height: 1.3;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+h1 { font-size: clamp(1.8rem, 4vw, 2.6rem); }
+h2 { font-size: clamp(1.3rem, 3vw, 1.75rem); }
+h3 { font-size: 1.15rem; }
+h4 { font-size: 1rem; }
+
+p {
+  color: var(--text-secondary);
+  max-width: 68ch;
+}
+
+/* Monospace label used throughout the site */
+.mono {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+}
+
+/* Accent-colored label/badge */
+.label {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--accent);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* Section heading with an accent line */
+.section-title {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 2rem;
+}
+
+.section-title::before {
+  content: '';
+  display: inline-block;
+  width: 3px;
+  height: 1.4em;
+  background: var(--accent);
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+
+/* ---------------------------------------------------------------
+   5. Navigation
+--------------------------------------------------------------- */
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  height: var(--nav-height);
+  background-color: var(--bg-secondary);
+  border-bottom: 1px solid var(--border);
+  /* subtle backdrop blur for depth */
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  background-color: rgba(19, 19, 22, 0.92);
+}
+
+.nav-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+}
+
+/* Site logo / name */
+.nav-logo {
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  color: var(--text-primary);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  text-decoration: none;
+}
+
+.nav-logo span {
+  color: var(--accent);
+}
+
+.nav-logo:hover {
+  opacity: 0.85;
+  text-decoration: none;
+}
+
+/* Nav links */
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.nav-links a {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  padding: 0.4rem 0.75rem;
+  border-radius: var(--radius);
+  text-decoration: none;
+  transition: color 0.2s ease, background 0.2s ease;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+  color: var(--text-primary);
+  background: var(--bg-card);
+}
+
+/* Current page link */
+.nav-links a.active {
+  color: var(--accent);
+}
+
+
+/* ---------------------------------------------------------------
+   6. Hero Section (index.html)
+--------------------------------------------------------------- */
+.hero {
+  padding: 5rem 0 4rem;
+}
+
+/* Two-column flex layout: text left, emoji right */
+.hero-layout {
+  display: flex;
+  align-items: center;
+  gap: 3rem;
+}
+
+.hero-text {
+  flex: 1 1 0;
+  min-width: 0; /* prevent flex blowout */
+}
+
+.hero-visual {
+  flex: 0 0 auto;
+  font-size: clamp(5rem, 10vw, 7.5rem);
+  line-height: 1;
+  user-select: none;
+  /* subtle pulse/float feel via filter */
+  filter: drop-shadow(0 0 24px rgba(0, 229, 192, 0.18));
+}
+
+/* Stack vertically on mobile */
+@media (max-width: 640px) {
+  .hero-layout {
+    flex-direction: column-reverse; /* emoji on top feels more natural on small screens */
+    align-items: flex-start;
+    gap: 1.5rem;
+  }
+
+  .hero-visual {
+    font-size: 4rem;
+  }
+}
+
+.hero-name {
+  font-size: clamp(2.2rem, 6vw, 3.4rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: var(--text-primary);
+  line-height: 1.15;
+  margin-bottom: 0.5rem;
+}
+
+.hero-title {
+  font-size: clamp(1rem, 2.5vw, 1.25rem);
+  color: var(--text-secondary);
+  font-weight: 400;
+  margin-bottom: 1.5rem;
+}
+
+.hero-bio {
+  font-size: 1.05rem;
+  color: var(--text-secondary);
+  max-width: 56ch;
+  line-height: 1.8;
+  margin-bottom: 2rem;
+}
+
+/* CTA button group */
+.btn-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.btn {
+  display: inline-block;
+  padding: 0.55rem 1.25rem;
+  border-radius: var(--radius);
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  border: none;
+}
+
+/* Primary filled button */
+.btn-primary {
+  background: var(--accent);
+  color: #0d0d0f;
+}
+
+.btn-primary:hover {
+  background: var(--accent-dim);
+  color: #0d0d0f;
+  text-decoration: none;
+}
+
+/* Ghost / outlined button */
+.btn-ghost {
+  background: transparent;
+  color: var(--accent);
+  border: 1px solid var(--border-accent);
+}
+
+.btn-ghost:hover {
+  background: var(--accent-glow);
+  text-decoration: none;
+}
+
+
+/* ---------------------------------------------------------------
+   7. Cards (shared between index + projects)
+--------------------------------------------------------------- */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.25rem;
+}
+
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  transition: border-color 0.2s ease, background 0.2s ease, transform 0.2s ease;
+  text-decoration: none;
+  color: inherit;
+}
+
+.card:hover {
+  border-color: var(--border-accent);
+  background: var(--bg-card-hover);
+  transform: translateY(-2px);
+  text-decoration: none;
+}
+
+.card-icon {
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+.card-title {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.card-desc {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.65;
+  flex: 1;
+  max-width: 100%;
+}
+
+/* Tag list inside a card */
+.tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: 0.25rem;
+}
+
+.tag {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--accent);
+  background: var(--accent-glow);
+  border: 1px solid var(--border-accent);
+  border-radius: 4px;
+  padding: 0.15rem 0.55rem;
+  letter-spacing: 0.04em;
+}
+
+/* "View project →" link within a card */
+.card-link {
+  font-size: 0.85rem;
+  color: var(--accent);
+  font-weight: 500;
+  margin-top: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.card-link::after {
+  content: '→';
+  transition: transform 0.2s ease;
+}
+
+.card:hover .card-link::after {
+  transform: translateX(3px);
+}
+
+
+/* ---------------------------------------------------------------
+   8. Blog Post List (blog.html)
+--------------------------------------------------------------- */
+.post-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.post-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  padding: 1.75rem 0;
+  border-bottom: 1px solid var(--border);
+  text-decoration: none;
+  color: inherit;
+  transition: padding-left 0.2s ease;
+}
+
+.post-item:first-child {
+  border-top: 1px solid var(--border);
+}
+
+.post-item:hover {
+  padding-left: 0.5rem;
+}
+
+.post-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+.post-meta .separator {
+  color: var(--border);
+}
+
+.post-category {
+  color: var(--accent);
+}
+
+.post-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  transition: color 0.2s ease;
+}
+
+.post-item:hover .post-title {
+  color: var(--accent);
+}
+
+.post-excerpt {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  max-width: 64ch;
+  line-height: 1.65;
+}
+
+
+/* ---------------------------------------------------------------
+   9. Article / Blog Post Page (post-template.html)
+--------------------------------------------------------------- */
+.article-header {
+  padding: 3.5rem 0 2.5rem;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 3rem;
+}
+
+.article-category {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--accent);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+  display: block;
+}
+
+.article-title {
+  font-size: clamp(1.6rem, 4vw, 2.4rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+  line-height: 1.2;
+  margin-bottom: 1rem;
+}
+
+.article-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+/* Article body — prose styles */
+.article-body {
+  max-width: 68ch;
+}
+
+.article-body p {
+  color: var(--text-secondary);
+  font-size: 1.025rem;
+  line-height: 1.85;
+  margin-bottom: 1.5rem;
+  max-width: 100%;
+}
+
+.article-body h2 {
+  font-size: 1.4rem;
+  color: var(--text-primary);
+  margin: 2.5rem 0 1rem;
+  padding-bottom: 0.4rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.article-body h3 {
+  font-size: 1.1rem;
+  color: var(--text-primary);
+  margin: 2rem 0 0.75rem;
+}
+
+.article-body ul,
+.article-body ol {
+  color: var(--text-secondary);
+  font-size: 1.025rem;
+  line-height: 1.8;
+  padding-left: 1.5rem;
+  margin-bottom: 1.5rem;
+  list-style: disc;
+}
+
+.article-body ol {
+  list-style: decimal;
+}
+
+.article-body li {
+  margin-bottom: 0.35rem;
+}
+
+/* Inline code */
+.article-body code {
+  font-family: var(--font-mono);
+  font-size: 0.88em;
+  color: var(--accent);
+  background: var(--accent-glow);
+  border: 1px solid var(--border-accent);
+  padding: 0.15em 0.45em;
+  border-radius: 4px;
+}
+
+/* Code block */
+.article-body pre {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.25rem 1.5rem;
+  overflow-x: auto;
+  margin-bottom: 1.5rem;
+}
+
+.article-body pre code {
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: 0.88rem;
+  color: var(--text-primary);
+}
+
+/* Blockquote */
+.article-body blockquote {
+  border-left: 3px solid var(--accent);
+  margin: 1.5rem 0;
+  padding: 0.75rem 1.25rem;
+  background: var(--accent-glow);
+  border-radius: 0 var(--radius) var(--radius) 0;
+}
+
+.article-body blockquote p {
+  color: var(--text-primary);
+  margin-bottom: 0;
+  font-style: italic;
+}
+
+/* Back to blog link above article */
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  margin-bottom: 2.5rem;
+  font-family: var(--font-mono);
+  transition: color 0.2s ease;
+  text-decoration: none;
+}
+
+.back-link::before {
+  content: '←';
+}
+
+.back-link:hover {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+
+/* ---------------------------------------------------------------
+   10. Projects Page Header
+--------------------------------------------------------------- */
+.page-header {
+  padding: 3.5rem 0 2.5rem;
+}
+
+.page-header p {
+  margin-top: 0.75rem;
+  font-size: 1.05rem;
+}
+
+
+/* ---------------------------------------------------------------
+   11. Footer
+--------------------------------------------------------------- */
+.footer {
+  background: var(--bg-secondary);
+  border-top: 1px solid var(--border);
+  padding: 2.5rem 0;
+  margin-top: auto;
+}
+
+.footer-inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.footer-copy {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+}
+
+.footer-links {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.footer-links a {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.footer-links a:hover {
+  color: var(--accent);
+}
+
+
+/* ---------------------------------------------------------------
+   12. Divider / Horizontal Rule
+--------------------------------------------------------------- */
+.divider {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 0;
+}
+
+
+/* ---------------------------------------------------------------
+   13. "View all" inline link row
+--------------------------------------------------------------- */
+.view-all-row {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 1.5rem;
+}
+
+.view-all {
+  font-size: 0.875rem;
+  color: var(--accent);
+  font-family: var(--font-mono);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  text-decoration: none;
+  transition: gap 0.2s ease;
+}
+
+.view-all::after {
+  content: '→';
+}
+
+.view-all:hover {
+  gap: 0.55rem;
+  text-decoration: none;
+}
+
+
+/* ---------------------------------------------------------------
+   14. Responsive — Mobile
+--------------------------------------------------------------- */
+@media (max-width: 600px) {
+  .nav-links a {
+    padding: 0.35rem 0.55rem;
+    font-size: 0.82rem;
+  }
+
+  .hero {
+    padding: 3rem 0 2.5rem;
+  }
+
+  .card-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .footer-inner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .article-header {
+    padding: 2.5rem 0 2rem;
+  }
+
+  .section {
+    padding: 2.75rem 0;
+  }
+}
+
+@media (max-width: 400px) {
+  .btn-group {
+    flex-direction: column;
+  }
+
+  .btn {
+    text-align: center;
+  }
+}

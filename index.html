@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Josh — Cybersecurity Analyst & Security Engineer. Writing about detection, engineering, and the projects I'm building." />
+  <title>Josh — Cybersecurity Analyst & Security Engineer</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ============================================================
+       Navigation
+       ============================================================ -->
+  <nav class="nav">
+    <div class="container nav-inner">
+      <!-- Site logo — update your name/handle here -->
+      <a class="nav-logo" href="index.html">josh<span>.</span>dev</a>
+
+      <ul class="nav-links">
+        <li><a href="index.html" class="active">Home</a></li>
+        <li><a href="projects.html">Projects</a></li>
+        <li><a href="blog.html">Blog</a></li>
+      </ul>
+    </div>
+  </nav>
+
+
+  <main>
+
+    <!-- ============================================================
+         Hero Section
+         ============================================================ -->
+    <section class="hero">
+      <div class="container">
+        <div class="hero-layout">
+
+          <!-- Left column: text content -->
+          <div class="hero-text">
+
+            <!-- Your name — edit here -->
+            <h1 class="hero-name">Josh</h1>
+
+            <!-- Your title — edit here -->
+            <p class="hero-title">Cybersecurity Analyst &amp; Security Engineer</p>
+
+            <!-- Short bio — edit here -->
+            <p class="hero-bio">
+              Hello Everyone! I work in managed detection and response and am building toward
+              security engineering. I write about cybersecurity, detection, and
+              the projects I'm building.
+            </p>
+
+            <!-- CTA buttons — update hrefs as needed -->
+            <div class="btn-group">
+              <a class="btn btn-primary" href="projects.html">View Projects</a>
+              <a class="btn btn-ghost"   href="blog.html">Read the Blog</a>
+            </div>
+
+          </div><!-- /hero-text -->
+
+          <!-- Right column: decorative emoji -->
+          <div class="hero-visual" aria-hidden="true">
+            💻
+          </div>
+
+        </div><!-- /hero-layout -->
+      </div>
+    </section>
+
+
+    <!-- ============================================================
+         Featured Projects Section
+         ============================================================ -->
+    <section class="section">
+      <div class="container">
+
+        <h2 class="section-title">Projects</h2>
+
+        <div class="card-grid">
+
+          <!-- Project Card 1 — edit title, desc, tags, and href -->
+          <a class="card" href="projects.html">
+            <div class="card-icon">&#128272;</div> <!-- lock icon -->
+            <div class="card-title">SIEM Detection Library</div>
+            <p class="card-desc">
+              A curated collection of detection rules and correlation queries
+              for Splunk and Elastic SIEM, targeting common attacker TTPs
+              mapped to MITRE ATT&amp;CK.
+            </p>
+            <div class="tag-list">
+              <span class="tag">Splunk</span>
+              <span class="tag">Elastic</span>
+              <span class="tag">MITRE ATT&CK</span>
+            </div>
+            <span class="card-link">View project</span>
+          </a>
+
+          <!-- Project Card 2 — edit title, desc, tags, and href -->
+          <a class="card" href="projects.html">
+            <div class="card-icon">&#128203;</div> <!-- clipboard icon -->
+            <div class="card-title">Alert Triage Automation</div>
+            <p class="card-desc">
+              A Python-based pipeline that enriches SOC alerts with threat
+              intelligence context from open-source feeds, reducing manual
+              triage time per alert.
+            </p>
+            <div class="tag-list">
+              <span class="tag">Python</span>
+              <span class="tag">SOAR</span>
+              <span class="tag">Threat Intel</span>
+            </div>
+            <span class="card-link">View project</span>
+          </a>
+
+        </div>
+
+        <!-- Link to full projects page -->
+        <div class="view-all-row">
+          <a class="view-all" href="projects.html">All projects</a>
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- ============================================================
+         Recent Blog Posts Section
+         ============================================================ -->
+    <section class="section">
+      <div class="container">
+
+        <h2 class="section-title">Recent Posts</h2>
+
+        <div class="post-list">
+
+          <!-- Blog Post Preview 1 — edit href, date, category, title, excerpt -->
+          <a class="post-item" href="post-template.html">
+            <div class="post-meta">
+              <span>2025-03-22</span>
+              <span class="separator">·</span>
+              <span class="post-category">Detection Engineering</span>
+            </div>
+            <div class="post-title">
+              Writing Detection Rules That Actually Fire in Production
+            </div>
+            <p class="post-excerpt">
+              Most detection rules look great in the lab and die quietly in
+              prod. Here's how I approach writing rules that survive contact
+              with real data — and how to tune them without drowning in
+              false positives.
+            </p>
+          </a>
+
+          <!-- Blog Post Preview 2 — edit href, date, category, title, excerpt -->
+          <a class="post-item" href="post-template.html">
+            <div class="post-meta">
+              <span>2025-02-10</span>
+              <span class="separator">·</span>
+              <span class="post-category">Career</span>
+            </div>
+            <div class="post-title">
+              From MDR Analyst to Security Engineer: My Roadmap
+            </div>
+            <p class="post-excerpt">
+              After two years in managed detection and response, I mapped out
+              the gap between analyst work and security engineering — and
+              what I'm doing to close it through side projects and
+              deliberate skill-building.
+            </p>
+          </a>
+
+        </div>
+
+        <!-- Link to full blog page -->
+        <div class="view-all-row">
+          <a class="view-all" href="blog.html">All posts</a>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+
+  <!-- ============================================================
+       Footer
+       ============================================================ -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <span class="footer-copy">&copy; 2025 Josh</span>
+      <div class="footer-links">
+        <!-- Update these hrefs with your real social/contact links -->
+        <a href="#">GitHub</a>
+        <a href="#">LinkedIn</a>
+        <a href="#">Email</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
