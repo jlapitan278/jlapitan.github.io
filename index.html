@@ -180,6 +180,54 @@
       </div>
     </section>
 
+
+    <!-- ============================================================
+         Contact Section
+         Form submissions are handled by Formspree (no backend needed).
+         To change the destination, update the form's `action` URL.
+         ============================================================ -->
+    <section class="section" id="contact">
+      <div class="container">
+
+        <h2 class="section-title">Get in Touch</h2>
+
+        <p style="margin-bottom: 1.5rem;">
+          Have a question, a project idea, or just want to say hi? Drop me a
+          line and I'll get back to you.
+        </p>
+
+        <form class="contact-form"
+              action="https://formspree.io/f/xpqkdjgg"
+              method="POST">
+
+          <!-- Customize the email subject Formspree sends you -->
+          <input type="hidden" name="_subject" value="New message from josh.dev" />
+
+          <!-- Honeypot: hidden field to catch bots (Formspree drops submissions with this filled) -->
+          <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" style="display:none" />
+
+          <div class="form-row">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" required />
+          </div>
+
+          <div class="form-row">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required />
+          </div>
+
+          <div class="form-row">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" rows="5" required></textarea>
+          </div>
+
+          <button type="submit" class="btn btn-primary">Send Message</button>
+
+        </form>
+
+      </div>
+    </section>
+
   </main>
 
 
@@ -192,7 +240,7 @@
       <div class="footer-links">
         <a href="https://github.com/jlapitan278" target="_blank" rel="noopener noreferrer">GitHub</a>
         <a href="https://www.linkedin.com/in/joshua-lapitan-0a269716b/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-        <a href="#">Email</a>
+        <a href="#contact">Email</a>
       </div>
     </div>
   </footer>
