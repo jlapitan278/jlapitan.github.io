@@ -1,8 +1,0 @@
-{
-  "permissions": {
-    "allow": [
-      "Bash(curl -s \"https://jlapitan278.github.io/jlapitan.github.io/index.html\")",
-      "Bash(curl -s -o /dev/null -w \"HTTP Status: %{http_code}\\\\n\" \"https://jlapitan278.github.io/jlapitan.github.io/thanks.html\")"
-    ]
-  }
-}
