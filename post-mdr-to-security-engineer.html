@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="After two years in managed detection and response, I mapped out the gap between analyst work and security engineering — and what I'm doing to close it." />
+  <title>From MDR Analyst to Security Engineer: My Roadmap — Josh</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ============================================================
+       Navigation
+       ============================================================ -->
+  <nav class="nav">
+    <div class="container nav-inner">
+      <a class="nav-logo" href="index.html">josh<span>.</span>dev</a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="projects.html">Projects</a></li>
+        <li><a href="blog.html" class="active">Blog</a></li>
+      </ul>
+    </div>
+  </nav>
+
+
+  <main>
+    <div class="container">
+
+      <a class="back-link" href="blog.html">
+        Back to blog
+      </a>
+
+
+      <!-- ============================================================
+           Article Header
+           ============================================================ -->
+      <header class="article-header">
+
+        <span class="article-category">Career</span>
+
+        <h1 class="article-title">
+          From MDR Analyst to Security Engineer: My Roadmap
+        </h1>
+
+        <div class="article-meta">
+          <span>Josh</span>
+          <span>&middot;</span>
+          <span>February 10, 2025</span>
+          <span>&middot;</span>
+          <span>6 min read</span>
+        </div>
+
+      </header>
+
+
+      <!-- ============================================================
+           Article Body
+           ============================================================ -->
+      <article class="article-body">
+
+        <p>
+          Two years into working in managed detection and response, I hit a
+          familiar plateau: I could triage alerts confidently, recognize
+          attacker patterns across clients, and write up an incident that an
+          executive could actually follow. What I couldn't do was build the
+          detection that caught the attacker, or the pipeline that enriched
+          the alert, or the automation that closed it out. That's the gap
+          between analyst work and security engineering — and closing it has
+          been my main project for the past several months.
+        </p>
+
+        <h2>What the analyst role actually teaches you</h2>
+
+        <p>
+          The underrated part of the MDR experience is pattern recognition.
+          After looking at a few thousand alerts, you develop an intuition
+          for what's normal, what's noise, and what's the start of something
+          bad. You learn which log fields matter, which enrichments save
+          time, and which indicators are worth chasing down. That intuition
+          is the foundation every detection engineer builds on — you can't
+          write good detections for behaviors you've never actually seen
+          in the wild.
+        </p>
+
+        <p>
+          The second thing analyst work teaches is process. You learn how
+          incidents actually get escalated, how clients want to be
+          communicated with, and how fast a detection has to fire to be
+          useful. That context is hard to fake, and it's why analysts-turned-engineers
+          tend to build tools people actually want.
+        </p>
+
+        <h2>The gap</h2>
+
+        <p>
+          Here's what the analyst role generally doesn't teach you, at least
+          not in any structured way:
+        </p>
+
+        <ul>
+          <li>
+            <strong>Writing production code.</strong> Most analysts live in
+            a SIEM UI and a ticketing system. You rarely write code that
+            runs unattended against real data.
+          </li>
+          <li>
+            <strong>Managing infrastructure.</strong> Engineers own the log
+            pipeline — the collectors, the parsers, the indexes, the
+            retention tiers. Analysts consume that infrastructure but don't
+            build it.
+          </li>
+          <li>
+            <strong>Designing detections from scratch.</strong> Tuning an
+            existing rule is different from starting with a TTP and ending
+            with a production-ready detection that handles edge cases.
+          </li>
+          <li>
+            <strong>Owning outcomes over shifts.</strong> Analysts often
+            work a rotating queue. Engineers own systems that run 24/7 and
+            have to think about what breaks at 3 AM.
+          </li>
+        </ul>
+
+        <h2>What I'm actually doing about it</h2>
+
+        <p>
+          Reading about these skills doesn't move the needle. Building does.
+          Here's the roadmap I'm running on right now:
+        </p>
+
+        <h3>1. A home SOC lab</h3>
+
+        <p>
+          I built a virtualized environment with Windows and Linux endpoints
+          forwarding <code>Sysmon</code> and <code>auditd</code> telemetry
+          into a Splunk instance. Then I started running attack simulations
+          from <code>Atomic Red Team</code> against it and writing
+          detections from scratch. Every simulation is a chance to practice
+          the full loop: observe the telemetry, write a rule, validate it
+          fires, tune out false positives on baseline traffic.
+        </p>
+
+        <h3>2. Writing real code</h3>
+
+        <p>
+          My <strong>ThreatPulse</strong> project pulls IOCs from multiple
+          open-source feeds, deduplicates them, enriches the entries, and
+          exposes them through a small API. It's nothing revolutionary, but
+          it's taught me more about designing reliable data pipelines than
+          any tutorial did. Building something that has to keep running
+          changes how you write code.
+        </p>
+
+        <h3>3. Reading other people's detections</h3>
+
+        <p>
+          Sigma rules, Elastic's detection-rules repo, Splunk's ESCU
+          content — there's a huge amount of production-quality detection
+          code available for free. I pick a rule I haven't seen, read it
+          end to end, and work out why every condition exists. It's
+          reverse-engineering someone else's thinking, which is a fast way
+          to absorb patterns.
+        </p>
+
+        <h3>4. Owning something small at work</h3>
+
+        <p>
+          I asked my lead if I could own the lifecycle of one detection
+          category end-to-end — ideation, implementation, tuning, and
+          deprecation. Scoping it small was the key. A whole-platform
+          project is a career move; one detection category is a learning
+          project. I've gotten way more feedback loops out of it than I
+          would have from a bigger ask.
+        </p>
+
+        <h2>The thing I wasn't expecting</h2>
+
+        <blockquote>
+          <p>
+            The hardest part of the transition isn't the technical gap —
+            it's getting comfortable shipping things that might break. As
+            an analyst, you don't ship anything; you respond. Engineering
+            requires a tolerance for writing something imperfect, pushing
+            it, and fixing it in production.
+          </p>
+        </blockquote>
+
+        <p>
+          This has been the real mindset shift. I'm naturally
+          risk-averse — most analysts are, because the cost of a missed
+          alert feels personal. Engineers have to trade that for a cost
+          model that accepts failure as part of iteration. I'm still
+          working on that.
+        </p>
+
+        <h2>Where I'm at</h2>
+
+        <p>
+          I'm not pretending I've made it. I'm somewhere in the middle of
+          this transition — comfortable enough to write detections and
+          small tools, not yet comfortable owning a platform. If you're
+          walking the same path, the single best piece of advice I can
+          offer is this: pick a project that forces you to write code that
+          has to run unattended, and ship it. That one constraint will
+          drive more growth than any certification on the planet.
+        </p>
+
+      </article>
+
+      <div style="padding-bottom: 4rem;"></div>
+
+    </div>
+  </main>
+
+
+  <!-- ============================================================
+       Footer
+       ============================================================ -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <span class="footer-copy">&copy; 2025 Josh</span>
+      <div class="footer-links">
+        <a href="https://github.com/jlapitan278" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="https://www.linkedin.com/in/joshua-lapitan-0a269716b/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <a href="index.html#contact">Email</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
