@@ -131,12 +131,6 @@ p {
   max-width: 68ch;
 }
 
-/* Monospace label used throughout the site */
-.mono {
-  font-family: var(--font-mono);
-  font-size: 0.85rem;
-}
-
 /* Accent-colored label/badge */
 .label {
   font-family: var(--font-mono);
@@ -173,7 +167,6 @@ p {
   top: 0;
   z-index: 100;
   height: var(--nav-height);
-  background-color: var(--bg-secondary);
   border-bottom: 1px solid var(--border);
   /* subtle backdrop blur for depth */
   backdrop-filter: blur(8px);
@@ -438,7 +431,6 @@ p {
 .post-list {
   display: flex;
   flex-direction: column;
-  gap: 0;
 }
 
 .post-item {
@@ -630,6 +622,7 @@ p {
   gap: 0.35rem;
   font-size: 0.85rem;
   color: var(--text-secondary);
+  margin-top: 2.5rem;
   margin-bottom: 2.5rem;
   font-family: var(--font-mono);
   transition: color 0.2s ease;
@@ -651,6 +644,10 @@ p {
 --------------------------------------------------------------- */
 .page-header {
   padding: 3.5rem 0 2.5rem;
+}
+
+.page-header h1 {
+  margin-top: 0.6rem;
 }
 
 .page-header p {
