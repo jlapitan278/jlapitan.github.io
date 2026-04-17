@@ -798,37 +798,6 @@ p {
   margin-top: 0.25rem;
 }
 
-.contact-form button:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-}
-
-/* Status message shown after a submit attempt.
-   Hidden by default; the script swaps in a .success or .error modifier. */
-.form-status {
-  display: none;
-  margin-top: 1.25rem;
-  padding: 1rem 1.25rem;
-  border-radius: var(--radius);
-  font-size: 0.95rem;
-  line-height: 1.6;
-  max-width: 560px;
-}
-
-.form-status.success {
-  display: block;
-  color: var(--accent);
-  background: var(--accent-glow);
-  border: 1px solid var(--border-accent);
-}
-
-.form-status.error {
-  display: block;
-  color: #ff6b6b;
-  background: rgba(255, 107, 107, 0.08);
-  border: 1px solid rgba(255, 107, 107, 0.3);
-}
-
 
 /* ---------------------------------------------------------------
    15. Responsive — Mobile
