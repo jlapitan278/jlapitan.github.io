@@ -33,8 +33,7 @@
       <div class="container">
         <h1>Projects</h1>
         <p>
-          Tools and experiments I've built around detection engineering,
-          security operations, and automation. Most are open source.
+          View the tools and experiments that I'm working on.
         </p>
       </div>
     </div>
@@ -51,45 +50,47 @@
         <div class="card-grid">
 
           <!-- -------------------------------------------------------
-               Project 1 — SIEM Detection Library
+               Project 1 — ThreatPulse
                Edit: card-title, card-desc, tags, and the href on <a>
           ------------------------------------------------------- -->
           <a class="card" href="#"> <!-- Replace # with your repo URL -->
-            <div class="card-icon">&#128272;</div>
-            <h3 class="card-title">SIEM Detection Library</h3>
+            <div class="card-icon">&#128269;</div>
+            <h3 class="card-title">ThreatPulse — Threat Intel Aggregator</h3>
             <p class="card-desc">
-              A curated collection of detection rules and correlation queries
-              for Splunk and Elastic SIEM. Each rule targets specific attacker
-              TTPs and is cross-referenced with MITRE ATT&amp;CK technique IDs.
-              Includes a tuning guide and false-positive notes per rule.
+              A threat intelligence project that pulls indicators of compromise
+              (IOCs) from multiple open-source feeds, deduplicates them, and
+              enriches each entry with contextual metadata. Designed to give
+              analysts a single pane of glass for fast IOC lookups during
+              triage.
             </p>
             <div class="tag-list">
-              <span class="tag">Splunk SPL</span>
-              <span class="tag">Elastic KQL</span>
-              <span class="tag">MITRE ATT&amp;CK</span>
-              <span class="tag">Detection Engineering</span>
+              <span class="tag">Python</span>
+              <span class="tag">Threat Intel</span>
+              <span class="tag">IOCs</span>
+              <span class="tag">REST APIs</span>
             </div>
             <span class="card-link">View on GitHub</span>
           </a>
 
           <!-- -------------------------------------------------------
-               Project 2 — Alert Triage Automation
+               Project 2 — SOC Lab Environment
                Edit: card-title, card-desc, tags, and the href on <a>
           ------------------------------------------------------- -->
           <a class="card" href="#"> <!-- Replace # with your repo URL -->
-            <div class="card-icon">&#128203;</div>
-            <h3 class="card-title">Alert Triage Automation</h3>
+            <div class="card-icon">&#129514;</div>
+            <h3 class="card-title">SOC Lab Environment</h3>
             <p class="card-desc">
-              A Python pipeline that automatically enriches incoming SOC alerts
-              with context from threat intel feeds (VirusTotal, AbuseIPDB,
-              Shodan). Outputs a structured triage summary and routes
-              high-confidence alerts to PagerDuty.
+              A virtualized security operations lab built for hands-on
+              detection engineering practice. Windows and Linux endpoints
+              forward Sysmon and auditd telemetry to a Splunk SIEM, where
+              scripted attack simulations from the Atomic Red Team library
+              are used to test and tune detection rules end-to-end.
             </p>
             <div class="tag-list">
-              <span class="tag">Python</span>
-              <span class="tag">REST APIs</span>
-              <span class="tag">Threat Intel</span>
-              <span class="tag">SOAR</span>
+              <span class="tag">Splunk</span>
+              <span class="tag">Sysmon</span>
+              <span class="tag">Atomic Red Team</span>
+              <span class="tag">Home Lab</span>
             </div>
             <span class="card-link">View on GitHub</span>
           </a>
