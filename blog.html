@@ -43,65 +43,24 @@
 
 
     <!-- ============================================================
-         Post List
-         Each <a class="post-item"> is one blog post.
-         To add a post: duplicate any post-item block, update the
-         href to the post's HTML file, and edit the metadata + text.
+         Empty State — Coming Soon
+         Replace this block with a <div class="post-list">...</div>
+         once the first post is ready to publish.
          ============================================================ -->
     <section class="section">
       <div class="container">
 
-        <div class="post-list">
-
-          <!-- --------------------------------------------------
-               Post 1
-               href: link to the post's HTML file
-               date: ISO format YYYY-MM-DD looks cleanest
-               post-category: short topic label
-               post-title: headline
-               post-excerpt: 1–2 sentence summary
-          -------------------------------------------------- -->
-          <a class="post-item" href="post-template.html">
-            <div class="post-meta">
-              <span>2025-03-22</span>
-              <span class="separator">·</span>
-              <span class="post-category">Detection Engineering</span>
-            </div>
-            <h3 class="post-title">
-              Writing Detection Rules That Actually Fire in Production
-            </h3>
-            <p class="post-excerpt">
-              Most detection rules look great in the lab and die quietly in
-              prod. Here's how I approach writing rules that survive contact
-              with real data — and how to tune them without drowning in
-              false positives.
-            </p>
-          </a>
-
-          <!-- --------------------------------------------------
-               Post 2
-          -------------------------------------------------- -->
-          <a class="post-item" href="post-mdr-to-security-engineer.html">
-            <div class="post-meta">
-              <span>2025-02-10</span>
-              <span class="separator">·</span>
-              <span class="post-category">Career</span>
-            </div>
-            <h3 class="post-title">
-              From MDR Analyst to Security Engineer: My Roadmap
-            </h3>
-            <p class="post-excerpt">
-              After two years in managed detection and response, I mapped out
-              the gap between analyst work and security engineering — and what
-              I'm doing to close it through side projects and deliberate
-              skill-building.
-            </p>
-          </a>
-
-          <!-- --------------------------------------------------
-               Add more posts below by duplicating a post-item block.
-          -------------------------------------------------- -->
-
+        <div class="empty-state">
+          <div class="empty-state-icon" aria-hidden="true">&#9998;</div>
+          <h2 class="empty-state-title">First post coming soon</h2>
+          <p class="empty-state-body">
+            I'm working on the first round of writing right now — expect
+            posts on detection engineering, the projects I'm building, and
+            notes from working in the SOC. Check back shortly.
+          </p>
+          <div class="btn-group">
+            <a class="btn btn-ghost" href="projects.html">View projects in the meantime</a>
+          </div>
         </div>
 
       </div>

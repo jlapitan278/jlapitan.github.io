@@ -800,7 +800,44 @@ p {
 
 
 /* ---------------------------------------------------------------
-   15. Responsive — Mobile
+   15. Empty State (blog.html "coming soon" placeholder)
+--------------------------------------------------------------- */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 2rem 0 3rem;
+  max-width: 560px;
+}
+
+.empty-state-icon {
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+  color: var(--accent);
+  background: var(--accent-glow);
+  border: 1px solid var(--border-accent);
+  border-radius: 50%;
+  margin-bottom: 1.25rem;
+}
+
+.empty-state-title {
+  font-size: clamp(1.4rem, 3vw, 1.75rem);
+  margin-bottom: 0.5rem;
+}
+
+.empty-state-body {
+  font-size: 1rem;
+  line-height: 1.75;
+  margin-bottom: 1.75rem;
+}
+
+
+/* ---------------------------------------------------------------
+   16. Responsive — Mobile
 --------------------------------------------------------------- */
 @media (max-width: 600px) {
   .nav-links a {
