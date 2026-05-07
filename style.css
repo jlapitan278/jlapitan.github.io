@@ -249,23 +249,40 @@ p {
 
 .hero-visual {
   flex: 0 0 auto;
-  font-size: clamp(5rem, 10vw, 7.5rem);
-  line-height: 1;
-  user-select: none;
-  /* subtle pulse/float feel via filter */
+  /* subtle accent-colored glow behind the photo */
   filter: drop-shadow(0 0 24px rgba(0, 229, 192, 0.18));
+}
+
+/* Circular profile photo */
+.hero-photo {
+  width:  clamp(180px, 22vw, 260px);
+  height: clamp(180px, 22vw, 260px);
+  border-radius: 50%;
+  object-fit: cover;
+  /* Shift the crop slightly upward so the face stays in frame */
+  object-position: center 20%;
+  border: 2px solid var(--border-accent);
+  display: block;
+  /* Encourage the browser to use higher-quality downscaling */
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+  /* Push rendering onto the GPU — fixes a Chrome bug where downscaled images appear soft */
+  transform: translateZ(0);
+  -webkit-backface-visibility: hidden;
+          backface-visibility: hidden;
 }
 
 /* Stack vertically on mobile */
 @media (max-width: 640px) {
   .hero-layout {
-    flex-direction: column-reverse; /* emoji on top feels more natural on small screens */
+    flex-direction: column-reverse; /* photo on top feels more natural on small screens */
     align-items: flex-start;
     gap: 1.5rem;
   }
 
-  .hero-visual {
-    font-size: 4rem;
+  .hero-photo {
+    width:  150px;
+    height: 150px;
   }
 }
 
