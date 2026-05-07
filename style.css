@@ -817,7 +817,53 @@ p {
 
 
 /* ---------------------------------------------------------------
-   15. Empty State (blog.html "coming soon" placeholder)
+   15. Scroll Animations
+   Elements with .fade-in-down start hidden + shifted up.
+   The IntersectionObserver in script.js adds .in-view
+   when the element scrolls into the viewport, triggering
+   the slide-down + fade-in transition.
+--------------------------------------------------------------- */
+.fade-in-down {
+  opacity: 0;
+  transform: translateY(-24px);
+  transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+}
+
+.fade-in-down.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Stagger siblings within card grids and post lists */
+.card-grid > .fade-in-down:nth-child(2) { transition-delay: 0.08s; }
+.card-grid > .fade-in-down:nth-child(3) { transition-delay: 0.16s; }
+.card-grid > .fade-in-down:nth-child(4) { transition-delay: 0.24s; }
+
+.post-list > .fade-in-down:nth-child(2) { transition-delay: 0.08s; }
+.post-list > .fade-in-down:nth-child(3) { transition-delay: 0.16s; }
+
+/* Stagger the hero text lines so they cascade in nicely */
+.hero-name.fade-in-down  { transition-delay: 0.05s; }
+.hero-title.fade-in-down { transition-delay: 0.15s; }
+.hero-bio.fade-in-down   { transition-delay: 0.25s; }
+.btn-group.fade-in-down  { transition-delay: 0.35s; }
+.hero-visual.fade-in-down { transition-delay: 0.2s; }
+
+/* Respect users who've requested reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .fade-in-down,
+  .fade-in-down.in-view {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+
+/* ---------------------------------------------------------------
+   16. Empty State (blog.html "coming soon" placeholder)
 --------------------------------------------------------------- */
 .empty-state {
   display: flex;
@@ -854,7 +900,7 @@ p {
 
 
 /* ---------------------------------------------------------------
-   16. Responsive — Mobile
+   17. Responsive — Mobile
 --------------------------------------------------------------- */
 @media (max-width: 600px) {
   .nav-links a {
