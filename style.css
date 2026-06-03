@@ -900,7 +900,176 @@ p {
 
 
 /* ---------------------------------------------------------------
-   17. Responsive — Mobile
+   17. Ambient Motion — the "alive" layer
+   Background motion, breathing glows, and hover effects inspired
+   by the skill-tree page, applied in the site's cyan palette.
+--------------------------------------------------------------- */
+
+/* Hero becomes the positioning context for ambient particles + gradient */
+.hero {
+  position: relative;
+  overflow: hidden;
+}
+
+.hero .container {
+  position: relative;
+  z-index: 2;
+}
+
+/* Breathing radial accent glow behind hero content */
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: -10%;
+  background: radial-gradient(ellipse at 25% 40%,
+              rgba(0, 229, 192, 0.09) 0%,
+              transparent 60%);
+  pointer-events: none;
+  z-index: 0;
+  animation: heroAmbient 8s ease-in-out infinite;
+}
+
+@keyframes heroAmbient {
+  0%, 100% { opacity: 0.55; transform: scale(1); }
+  50%      { opacity: 1;    transform: scale(1.08); }
+}
+
+/* Page-wide floating accent particles — fixed to the viewport so they
+   stay visible as you scroll. A mask gradient fades them out toward
+   the bottom of the viewport so the lower part of any page feels
+   calmer than the top. z-index: -1 keeps them behind all content. */
+.particles {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: -1;
+  mask-image: linear-gradient(180deg,
+              black           0%,
+              black          30%,
+              rgba(0,0,0,0.7) 60%,
+              rgba(0,0,0,0.2) 85%,
+              transparent    100%);
+  -webkit-mask-image: linear-gradient(180deg,
+              black           0%,
+              black          30%,
+              rgba(0,0,0,0.7) 60%,
+              rgba(0,0,0,0.2) 85%,
+              transparent    100%);
+}
+
+.particle {
+  position: absolute;
+  bottom: -20px;
+  left: var(--x);
+  width:  var(--size, 3px);
+  height: var(--size, 3px);
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 6px var(--accent),
+              0 0 12px rgba(0, 229, 192, 0.4);
+  opacity: 0;
+  animation: floatUp var(--dur, 10s) linear infinite;
+  animation-delay: var(--delay, 0s);
+}
+
+@keyframes floatUp {
+  0%   { transform: translate3d(0, 0, 0);                        opacity: 0;   }
+  10%  {                                                          opacity: 0.7; }
+  85%  {                                                          opacity: 0.4; }
+  100% { transform: translate3d(var(--drift, 20px), -110vh, 0);   opacity: 0;   }
+}
+
+/* Profile photo — gentle breathing accent glow */
+@keyframes photoBreath {
+  0%, 100% { filter: drop-shadow(0 0 18px rgba(0, 229, 192, 0.15)); }
+  50%      { filter: drop-shadow(0 0 38px rgba(0, 229, 192, 0.32)); }
+}
+.hero-visual {
+  animation: photoBreath 5s ease-in-out infinite;
+}
+
+/* Stronger glow + lift on card hover (applies site-wide) */
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 32px rgba(0, 229, 192, 0.14),
+              inset 0 0 0 1px rgba(0, 229, 192, 0.2);
+}
+
+/* Page header (projects, blog) — same breathing radial glow as the hero,
+   so non-hero pages feel as alive as the homepage. */
+.page-header {
+  position: relative;
+  overflow: hidden;
+}
+
+.page-header::before {
+  content: '';
+  position: absolute;
+  inset: -20%;
+  background: radial-gradient(ellipse at 25% 50%,
+              rgba(0, 229, 192, 0.07) 0%,
+              transparent 60%);
+  pointer-events: none;
+  z-index: 0;
+  animation: heroAmbient 9s ease-in-out infinite;
+}
+
+.page-header .container {
+  position: relative;
+  z-index: 1;
+}
+
+/* Empty-state badge (blog "coming soon") — gentle accent breath */
+.empty-state-icon {
+  animation: emptyStatePulse 3.5s ease-in-out infinite;
+}
+
+@keyframes emptyStatePulse {
+  0%, 100% {
+    box-shadow: 0 0 10px rgba(0, 229, 192, 0.15);
+    border-color: rgba(0, 229, 192, 0.25);
+  }
+  50% {
+    box-shadow: 0 0 22px rgba(0, 229, 192, 0.45);
+    border-color: rgba(0, 229, 192, 0.55);
+  }
+}
+
+/* Section title accent bar shimmers gently */
+.section-title::before {
+  background: linear-gradient(180deg,
+              var(--accent) 0%,
+              rgba(0, 229, 192, 0.45) 50%,
+              var(--accent) 100%);
+  background-size: 100% 200%;
+  box-shadow: 0 0 6px rgba(0, 229, 192, 0.4);
+  animation: titleShimmer 3.5s ease-in-out infinite;
+}
+
+@keyframes titleShimmer {
+  0%, 100% { background-position: 0% 0%;
+             box-shadow: 0 0 6px  rgba(0, 229, 192, 0.4); }
+  50%      { background-position: 0% 100%;
+             box-shadow: 0 0 14px rgba(0, 229, 192, 0.75); }
+}
+
+/* Respect users who've requested reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .hero::before,
+  .page-header::before,
+  .hero-visual,
+  .empty-state-icon,
+  .section-title::before,
+  .particle {
+    animation: none;
+  }
+  .particles { display: none; }
+}
+
+
+/* ---------------------------------------------------------------
+   18. Responsive — Mobile
 --------------------------------------------------------------- */
 @media (max-width: 600px) {
   .nav-links a {

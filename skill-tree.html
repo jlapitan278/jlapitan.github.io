@@ -1,0 +1,1435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Josh's Skill Tree — a JRPG-style visualization of certifications, skills, and milestones." />
+  <title>Skill Tree — Josh</title>
+
+  <!-- Gothic serif font for the parchment/RPG feel -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&display=swap" />
+
+  <style>
+    /* =========================================================
+       Page shell — dark parchment aesthetic
+       ========================================================= */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: #0e0d0a;
+      color: #d8c79a;
+      font-family: 'Cinzel', 'Times New Roman', serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* =========================================================
+       Page-wide ambient embers — gold motes drifting up across the
+       whole page (not just the canvas), so the "alive" area spans
+       from the top of the page down. Fixed + behind all content.
+       ========================================================= */
+    .embers {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      overflow: hidden;
+      pointer-events: none;
+      /* Fade out toward the bottom so lower content stays calm */
+      mask-image: linear-gradient(180deg,
+                  black 0%, black 35%, rgba(0,0,0,0.6) 65%,
+                  rgba(0,0,0,0.2) 88%, transparent 100%);
+      -webkit-mask-image: linear-gradient(180deg,
+                  black 0%, black 35%, rgba(0,0,0,0.6) 65%,
+                  rgba(0,0,0,0.2) 88%, transparent 100%);
+    }
+
+    .ember {
+      position: absolute;
+      bottom: -20px;
+      left: var(--x);
+      width:  var(--size, 3px);
+      height: var(--size, 3px);
+      border-radius: 50%;
+      background: #f5d76e;
+      box-shadow: 0 0 6px #f5d76e, 0 0 12px rgba(212, 168, 71, 0.5);
+      opacity: 0;
+      animation: emberFloat var(--dur, 12s) linear infinite;
+      animation-delay: var(--delay, 0s);
+    }
+
+    @keyframes emberFloat {
+      0%   { transform: translate3d(0, 0, 0);                        opacity: 0;   }
+      10%  {                                                          opacity: 0.7; }
+      85%  {                                                          opacity: 0.35;}
+      100% { transform: translate3d(var(--drift, 20px), -110vh, 0);   opacity: 0;   }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .embers { display: none; }
+    }
+
+    /* Back link, top-left */
+    .back-link {
+      position: fixed;
+      top: 1.5rem;
+      left: 1.5rem;
+      z-index: 10;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.5rem 1rem;
+      color: #d4a847;
+      text-decoration: none;
+      font-size: 0.9rem;
+      letter-spacing: 0.05em;
+      border: 1px solid rgba(212, 168, 71, 0.35);
+      border-radius: 4px;
+      background: rgba(20, 16, 10, 0.7);
+      transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+    }
+    .back-link::before { content: '←'; }
+    .back-link:hover {
+      color: #f5d76e;
+      border-color: rgba(245, 215, 110, 0.7);
+      background: rgba(45, 35, 18, 0.85);
+    }
+
+    /* =========================================================
+       Intro section — shown above the canvas on every screen size
+       ========================================================= */
+    .intro {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 6rem 1.5rem 2.5rem;
+      text-align: center;
+    }
+
+    .ornament-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .ornament-line {
+      flex: 1;
+      max-width: 90px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, #8a7048, transparent);
+    }
+
+    .ornament-symbol {
+      color: #d4a847;
+      font-size: 1rem;
+      line-height: 1;
+    }
+
+    .intro-title {
+      color: #f5d76e;
+      font-size: clamp(1.5rem, 3.5vw, 2rem);
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      margin-bottom: 1.5rem;
+      text-transform: uppercase;
+    }
+
+    .intro-body {
+      margin-bottom: 2rem;
+    }
+
+    .intro-body p {
+      color: #c4b48c;
+      font-size: 0.95rem;
+      line-height: 1.75;
+      margin-bottom: 1rem;
+    }
+
+    .intro-body p:last-child { margin-bottom: 0; }
+
+    .intro-body em {
+      color: #f5d76e;
+      font-style: normal;
+      font-weight: 600;
+    }
+
+    /* Legend with the three status dots */
+    .intro-legend {
+      display: flex;
+      justify-content: center;
+      gap: 1.75rem;
+      flex-wrap: wrap;
+      padding: 1.1rem 1.25rem;
+      background: rgba(20, 16, 10, 0.7);
+      border: 1px solid rgba(212, 168, 71, 0.25);
+      border-radius: 6px;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+    }
+
+    .legend-dot {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      display: inline-block;
+      flex-shrink: 0;
+    }
+    .legend-earned {
+      background: radial-gradient(circle at 30% 30%, #f5d76e, #a07d28);
+      box-shadow: 0 0 10px rgba(245, 215, 110, 0.55);
+    }
+    .legend-in-progress {
+      background: radial-gradient(circle at 30% 30%, #a0d060, #5d8a3a);
+      box-shadow: 0 0 8px rgba(160, 208, 96, 0.4);
+    }
+    .legend-locked {
+      background: radial-gradient(circle at 30% 30%, #2a2418, #100c08);
+      border: 1px solid #5a5040;
+    }
+
+    .legend-text {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      text-align: left;
+    }
+
+    .legend-text strong {
+      color: #d8c79a;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      line-height: 1.2;
+    }
+
+    .legend-text span {
+      color: #8a8275;
+      font-size: 0.7rem;
+      font-family: 'Times New Roman', serif;
+      letter-spacing: 0.02em;
+    }
+
+    /* Mobile-only message ("view on desktop") */
+    .mobile-only {
+      display: none;
+      margin-top: 1.25rem;
+      font-size: 0.82rem;
+      color: #8a8275;
+      font-style: italic;
+    }
+    @media (max-width: 600px) {
+      .mobile-only { display: block; }
+      .intro       { padding: 5rem 1.25rem 1.5rem; }
+    }
+
+
+    /* Stage centers the canvas horizontally. The warm ambient backdrop
+       is now a full-viewport fixed layer (body::before), so there's no
+       edge here where the canvas area begins. */
+    .stage {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem 1rem 4rem;
+      position: relative;
+    }
+
+
+    /* =========================================================
+       Entrance animation — each element fades in from below,
+       cascading down the page in sequence.
+       ========================================================= */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(28px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .fade-up {
+      opacity: 0;
+      animation: fadeInUp 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+
+    /* Per-element stagger — earlier elements appear first */
+    .intro      .ornament-row             { animation-delay: 0.05s; }
+    .intro      .intro-title              { animation-delay: 0.2s;  }
+    .intro      .intro-body p:nth-child(1){ animation-delay: 0.35s; }
+    .intro      .intro-body p:nth-child(2){ animation-delay: 0.5s;  }
+    .intro      .intro-legend             { animation-delay: 0.7s;  }
+    .intro      .mobile-only              { animation-delay: 0.85s; }
+    .stage      .canvas-wrap              { animation-delay: 0.9s;  }
+    .mobile-view .mobile-card:nth-child(1){ animation-delay: 0.9s;  }
+    .mobile-view .mobile-card:nth-child(2){ animation-delay: 1.0s;  }
+    .mobile-view .mobile-card:nth-child(3){ animation-delay: 1.1s;  }
+    .mobile-view .mobile-card:nth-child(4){ animation-delay: 1.2s;  }
+    .mobile-view .mobile-milestones       { animation-delay: 1.3s;  }
+
+    /* Respect users who've requested reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+      .fade-up {
+        opacity: 1;
+        animation: none;
+        transform: none;
+      }
+    }
+
+    .canvas-wrap {
+      width: 100%;
+      max-width: 900px;
+      /* Keep the canvas aspect ratio 900:800 while scaling */
+      aspect-ratio: 9 / 8;
+      position: relative;
+    }
+
+    canvas {
+      width: 100%;
+      height: 100%;
+      display: block;
+      /* Canvas itself stays transparent — the ambient glow comes from
+         a stage-level pseudo-element below, so there's no hard rectangular
+         edge between the canvas and the intro section above. */
+    }
+
+    /* =========================================================
+       Tooltip — matches the parchment palette
+       ========================================================= */
+    .tooltip {
+      position: fixed;
+      pointer-events: none;
+      z-index: 20;
+      max-width: 260px;
+      padding: 0.65rem 0.85rem;
+      background: linear-gradient(180deg, #1a1610 0%, #0f0c08 100%);
+      border: 1px solid rgba(212, 168, 71, 0.45);
+      border-radius: 4px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.6),
+                  inset 0 0 12px rgba(212, 168, 71, 0.08);
+      opacity: 0;
+      transform: translate(-50%, calc(-100% - 14px));
+      transition: opacity 0.15s ease;
+      font-family: 'Cinzel', serif;
+      font-size: 0.78rem;
+      line-height: 1.5;
+    }
+    .tooltip.is-visible { opacity: 1; }
+
+    .tooltip-name {
+      color: #f5d76e;
+      font-weight: 600;
+      font-size: 0.88rem;
+      letter-spacing: 0.04em;
+      margin-bottom: 0.2rem;
+    }
+
+    .tooltip-status {
+      display: inline-block;
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 0.1rem 0.45rem;
+      border-radius: 2px;
+      margin-bottom: 0.4rem;
+    }
+    .tooltip-status.earned      { color: #f5d76e; background: rgba(212, 168, 71, 0.18); }
+    .tooltip-status.in-progress { color: #a0d060; background: rgba(122, 170, 80, 0.18); }
+    .tooltip-status.locked      { color: #8a8275; background: rgba(110, 100, 85, 0.18); }
+
+    .tooltip-desc {
+      color: #c4b48c;
+      font-size: 0.78rem;
+    }
+
+    /* =========================================================
+       Mobile fallback — vertical list view (≤600px)
+       ========================================================= */
+    .mobile-view {
+      display: none;
+      max-width: 480px;
+      margin: 0 auto;
+      padding: 0 1.25rem 3rem;
+    }
+
+    .mobile-card {
+      background: linear-gradient(180deg, #1a1610 0%, #100d09 100%);
+      border: 1px solid rgba(212, 168, 71, 0.25);
+      border-radius: 6px;
+      padding: 1.25rem;
+      margin-bottom: 1rem;
+    }
+
+    .mobile-card h2 {
+      color: #f5d76e;
+      font-size: 1.1rem;
+      letter-spacing: 0.06em;
+      margin-bottom: 0.75rem;
+      padding-bottom: 0.4rem;
+      border-bottom: 1px solid rgba(212, 168, 71, 0.2);
+    }
+
+    .mobile-card-stats {
+      display: flex;
+      gap: 1rem;
+      font-size: 0.82rem;
+      font-family: 'Times New Roman', serif;
+    }
+
+    .mobile-stat {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+    .mobile-stat .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+    .mobile-stat.earned      .dot { background: #d4a847; box-shadow: 0 0 6px rgba(245, 215, 110, 0.6); }
+    .mobile-stat.in-progress .dot { background: #7aaa50; }
+    .mobile-stat.locked      .dot { background: #4a4338; }
+    .mobile-stat.earned      { color: #f5d76e; }
+    .mobile-stat.in-progress { color: #a0d060; }
+    .mobile-stat.locked      { color: #8a8275; }
+
+    .mobile-milestones {
+      margin-top: 1.5rem;
+    }
+    .mobile-milestone {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      padding: 0.65rem 0;
+      border-bottom: 1px solid rgba(212, 168, 71, 0.12);
+      font-size: 0.82rem;
+    }
+    .mobile-milestone:last-child { border-bottom: none; }
+    .mobile-milestone .age {
+      color: #d4a847;
+      font-weight: 600;
+      min-width: 3.5rem;
+    }
+    .mobile-milestone .info { color: #c4b48c; }
+
+    @media (max-width: 600px) {
+      .stage      { display: none; }
+      .mobile-view { display: block; }
+    }
+  </style>
+</head>
+<body>
+
+  <a class="back-link" href="/">Back to Portfolio</a>
+
+
+  <!-- =========================================================
+       Intro — visible on every screen size, sits above the canvas
+       ========================================================= -->
+  <section class="intro">
+
+    <div class="ornament-row fade-up">
+      <span class="ornament-line"></span>
+      <span class="ornament-symbol">&#x2756;</span><!-- ❖ -->
+      <span class="ornament-line"></span>
+    </div>
+
+    <h1 class="intro-title fade-up">About This Skill Tree</h1>
+
+    <div class="intro-body">
+      <p class="fade-up">
+        Inspired by the skill trees of JRPGs like Final Fantasy and Dark Souls, this
+        page maps my professional career — milestones
+        I've reached, skills I'm sharpening, and goals still ahead.
+      </p>
+      <p class="fade-up">
+        The central trunk marks <em>life milestones</em> along the way; each
+        of the four wheels represents a <em>discipline I'm focusing on</em> —
+        Fitness, Cybersecurity, Development, and AI / LLM. Hover any node for
+        details.
+      </p>
+    </div>
+
+    <!-- Status legend -->
+    <div class="intro-legend fade-up">
+      <div class="legend-item">
+        <span class="legend-dot legend-earned" aria-hidden="true"></span>
+        <div class="legend-text">
+          <strong>Earned</strong>
+          <span>Completed</span>
+        </div>
+      </div>
+      <div class="legend-item">
+        <span class="legend-dot legend-in-progress" aria-hidden="true"></span>
+        <div class="legend-text">
+          <strong>In Progress</strong>
+          <span>Active work</span>
+        </div>
+      </div>
+      <div class="legend-item">
+        <span class="legend-dot legend-locked" aria-hidden="true"></span>
+        <div class="legend-text">
+          <strong>Locked</strong>
+          <span>Future goal</span>
+        </div>
+      </div>
+    </div>
+
+    <p class="mobile-only fade-up">
+      For the full skill-tree visualization, view this page on a larger screen.
+    </p>
+
+  </section>
+
+
+  <!-- =========================================================
+       Desktop / tablet — canvas-based skill tree
+       ========================================================= -->
+  <main class="stage">
+    <div class="canvas-wrap fade-up">
+      <canvas id="skillCanvas" width="900" height="800"
+              aria-label="Skill tree visualization"></canvas>
+    </div>
+  </main>
+
+
+  <!-- =========================================================
+       Mobile fallback — list view
+       Populated by the script at the bottom of the page.
+       ========================================================= -->
+  <section class="mobile-view" aria-label="Skill tree summary">
+    <div id="mobileWheels"></div>
+    <div class="mobile-milestones fade-up">
+      <h2 style="color: #f5d76e; font-size: 1rem; letter-spacing: 0.06em; margin-bottom: 0.75rem;">Milestones</h2>
+      <div id="mobileMilestones"></div>
+    </div>
+  </section>
+
+
+  <!-- Tooltip element (kept outside the canvas) -->
+  <div id="tooltip" class="tooltip" role="tooltip">
+    <div class="tooltip-name"></div>
+    <div class="tooltip-status"></div>
+    <div class="tooltip-desc"></div>
+  </div>
+
+
+  <script>
+  /* =============================================================
+     SKILL_DATA — edit this object to update the tree.
+     Status values: 'earned' | 'in-progress' | 'locked'
+     ============================================================= */
+  const SKILL_DATA = {
+    milestones: [
+      { age: 20, label: 'Age 20', sub: 'Penn State · B.S. Cybersecurity',  status: 'earned'      },
+      { age: 22, label: 'Age 22', sub: 'Security+ · BTL1',                 status: 'earned'      },
+      { age: 25, label: 'Age 25', sub: 'EY Cybersecurity Consultant',      status: 'earned'      },
+      { age: 26, label: 'Age 26', sub: 'Varonis MDDR Analyst II',          status: 'earned'      },
+      { age: 28, label: 'Age 28', sub: 'CISSP · Hyrox Race',               status: 'in-progress' },
+      { age: 30, label: 'Age 30', sub: 'Staff Security Engineer',          status: 'locked'      }
+    ],
+    wheels: [
+      {
+        id: 'fitness',
+        label: 'Fitness',
+        icon: '\u{1F4AA}',  /* 💪 flexed biceps */
+        desc: 'Strength, conditioning, and Hyrox race prep',
+        position: 'top-left',
+        accentColor: '#7aaa50',
+        glowColor:   '#a0d060',
+        nodes: [
+          { label: 'Strength Base', status: 'earned',      desc: 'Compound lifts, progressive overload' },
+          { label: 'Cardio Base',   status: 'earned',      desc: 'Running, VO2 max work' },
+          { label: 'Hyrox Prep',    status: 'in-progress', desc: 'Sled push, ski erg, race-specific conditioning' },
+          { label: 'Nutrition',     status: 'in-progress', desc: 'Peri-workout timing, macro targets' },
+          { label: 'Recovery',      status: 'in-progress', desc: 'HRV tracking, sleep, active recovery protocols' },
+          { label: 'Race Day',      status: 'locked',      desc: 'Sub-60 Hyrox finish' }
+        ]
+      },
+      {
+        id: 'cybersecurity',
+        label: 'Cybersecurity',
+        icon: '\u{1F6E1}\u{FE0F}',  /* 🛡️ shield */
+        desc: 'Detection engineering, certifications, and SOC work',
+        position: 'top-right',
+        accentColor: '#5a8fb5',
+        glowColor:   '#7eb3d8',
+        nodes: [
+          { label: 'Security+',       status: 'earned',      desc: 'CompTIA certified' },
+          { label: 'CySA+',           status: 'earned',      desc: 'Behavioral analytics, threat detection' },
+          { label: 'AZ-900',          status: 'earned',      desc: 'Microsoft Certified: Azure Fundamentals' },
+          { label: 'Detection Eng.',  status: 'in-progress', desc: 'ThreatPulse, SOC lab, detection-as-code' },
+          { label: 'CISSP',           status: 'in-progress', desc: 'Actively studying' },
+          { label: 'Staff Sec. Eng.', status: 'locked',      desc: 'Target role: security engineering' }
+        ]
+      },
+      {
+        id: 'development',
+        label: 'Development',
+        icon: '\u{1F4BB}',  /* 💻 laptop */
+        desc: 'Full-stack builds and security tooling',
+        position: 'bottom-left',
+        accentColor: '#b070b8',
+        glowColor:   '#d090d8',
+        nodes: [
+          { label: 'Python',             status: 'earned',      desc: 'Scripting, automation, security tooling' },
+          { label: 'React',              status: 'earned',      desc: 'Component UI, hooks, ThreatPulse dashboard' },
+          { label: 'Next.js',            status: 'earned',      desc: 'Full-stack, Netlify Functions, SSR' },
+          { label: 'Supabase',           status: 'earned',      desc: 'Schema design, RLS, real-time data layer' },
+          { label: 'Detection-as-Code',  status: 'in-progress', desc: 'Sigma rules, CI/CD for detections' },
+          { label: 'OSS',                status: 'locked',      desc: 'Publish ThreatPulse as open source' }
+        ]
+      },
+      {
+        id: 'ai',
+        label: 'AI / LLM',
+        icon: '\u{1F916}',  /* 🤖 robot */
+        desc: 'Prompt engineering, agents, and AI-driven security',
+        position: 'bottom-right',
+        accentColor: '#d4a847',
+        glowColor:   '#f5d76e',
+        nodes: [
+          { label: 'Prompt Eng.',  status: 'earned',      desc: 'System prompts, few-shot, chain-of-thought' },
+          { label: 'Claude API',   status: 'earned',      desc: 'Tool use, batch API, prompt caching' },
+          { label: 'Agents',       status: 'in-progress', desc: 'MCP workflows, Gmail digest automation' },
+          { label: 'MCP',          status: 'in-progress', desc: 'Model Context Protocol integrations' },
+          { label: 'AI + SecOps',  status: 'in-progress', desc: 'LLM-driven threat intel via ThreatPulse' },
+          { label: 'AI Tooling',   status: 'locked',      desc: 'Publish AI-powered security tools' }
+        ]
+      }
+    ]
+  };
+
+
+  /* =============================================================
+     Layout constants
+     ============================================================= */
+  const W = 900;
+  const H = 800;
+  const CENTER_X = W / 2;
+  const TRUNK_TOP = 110;
+  const TRUNK_BOTTOM = 740;
+  const TRUNK_WIDTH = 22;
+
+  const WHEEL_POSITIONS = {
+    'top-left':     { x: 158, y: 260, branchY: 260 },
+    'top-right':    { x: 742, y: 260, branchY: 260 },
+    'bottom-left':  { x: 158, y: 580, branchY: 580 },
+    'bottom-right': { x: 742, y: 580, branchY: 580 }
+  };
+
+  const WHEEL_OUTER_R = 130;
+  const WHEEL_INNER_R = 118;
+  const WHEEL_HUB_R   = 38;
+  const NODE_DISTANCE = 100;
+  const NODE_RADIUS   = 13;
+
+  const STATUS_COLORS = {
+    earned: {
+      fill:   '#d4a847',
+      glow:   '#f5d76e',
+      stroke: '#a07d28',
+      ring:   '#f5d76e',
+      label:  '#f5d76e'
+    },
+    'in-progress': {
+      fill:   '#7aaa50',
+      glow:   '#a0d060',
+      stroke: '#5d8a3a',
+      ring:   '#a0d060',
+      label:  '#a0d060'
+    },
+    locked: {
+      fill:   '#3a3530',
+      glow:   '#1a1610',
+      stroke: '#5a5040',
+      ring:   '#5a5040',
+      label:  '#7a705c'
+    }
+  };
+
+
+  /* =============================================================
+     Motion preference — users with reduced-motion get a static view
+     ============================================================= */
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+
+  /* =============================================================
+     Ambient particle system — floating embers drifting upward
+     ============================================================= */
+  const PARTICLE_COUNT = 36;
+  const particles = [];
+
+  function createParticle(initial) {
+    return {
+      x: Math.random() * W,
+      y: initial ? Math.random() * H : H + 20 + Math.random() * 80,
+      vx: (Math.random() - 0.5) * 0.15,
+      vy: -0.15 - Math.random() * 0.35,
+      r: 0.8 + Math.random() * 1.8,
+      opacity: 0.25 + Math.random() * 0.5,
+      sway: Math.random() * Math.PI * 2,
+      swaySpeed: 0.4 + Math.random() * 0.8,
+      swayAmount: 0.15 + Math.random() * 0.35,
+      hue: Math.random() < 0.7 ? 'gold' : 'amber'
+    };
+  }
+
+  for (let i = 0; i < PARTICLE_COUNT; i++) {
+    particles.push(createParticle(true));
+  }
+
+  function updateAndDrawParticles(time, dt) {
+    if (reduceMotion) return;
+
+    for (let i = 0; i < particles.length; i++) {
+      const p = particles[i];
+      p.sway += p.swaySpeed * dt / 1000;
+      p.x += p.vx + Math.sin(p.sway) * p.swayAmount;
+      p.y += p.vy * dt / 16;
+
+      // Recycle particles that drift off the top
+      if (p.y < -20) {
+        particles[i] = createParticle(false);
+        continue;
+      }
+
+      const glowR = p.r * 4;
+      const glow  = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, glowR);
+      const tint  = p.hue === 'gold' ? '245, 215, 110' : '212, 168, 71';
+      glow.addColorStop(0, 'rgba(' + tint + ', ' + p.opacity + ')');
+      glow.addColorStop(1, 'rgba(' + tint + ', 0)');
+      ctx.fillStyle = glow;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, glowR, 0, Math.PI * 2);
+      ctx.fill();
+    }
+  }
+
+
+  /* =============================================================
+     Canvas setup — handles high-DPI rendering
+     ============================================================= */
+  const canvas = document.getElementById('skillCanvas');
+  const ctx = canvas.getContext('2d');
+  let dpr = window.devicePixelRatio || 1;
+
+  function setupCanvas() {
+    dpr = window.devicePixelRatio || 1;
+    canvas.width  = W * dpr;
+    canvas.height = H * dpr;
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    ctx.scale(dpr, dpr);
+  }
+  setupCanvas();
+  window.addEventListener('resize', setupCanvas);
+
+
+  /* =============================================================
+     Hit-test + hover state — rebuilt every frame.
+     ============================================================= */
+  let hitTargets = [];
+  let hoveredId  = null;       // which node the mouse is over (string key)
+  let hoverScale = {};         // animated scale per-node, eased over time
+
+  function addHitTarget(id, x, y, r, data) {
+    hitTargets.push({ id, x, y, r, data });
+  }
+
+  /**
+   * Set ctx.font so that `text` fits within `maxWidth`.
+   * Starts at `baseSize` and scales down to a floor of 7px.
+   */
+  function setFitFont(text, maxWidth, weight, baseSize) {
+    let size = baseSize;
+    ctx.font = weight + ' ' + size + 'px Cinzel, serif';
+    const w = ctx.measureText(text).width;
+    if (w <= maxWidth) return;
+    size = Math.max(7, baseSize * (maxWidth / w));
+    ctx.font = weight + ' ' + size.toFixed(2) + 'px Cinzel, serif';
+  }
+
+  function getHoverBoost(id, dt) {
+    const target  = (hoveredId === id) ? 1 : 0;
+    const current = hoverScale[id] || 0;
+    // Ease toward target — smoother than a hard snap
+    const eased = current + (target - current) * Math.min(dt / 90, 1);
+    hoverScale[id] = eased;
+    return eased; // 0..1
+  }
+
+
+  /* =============================================================
+     Drawing helpers
+     ============================================================= */
+  function drawTrunk(time) {
+    // Bark gradient — darker on the edges, lighter in the middle
+    const grad = ctx.createLinearGradient(
+      CENTER_X - TRUNK_WIDTH / 2, 0,
+      CENTER_X + TRUNK_WIDTH / 2, 0
+    );
+    grad.addColorStop(0,    '#2a1d12');
+    grad.addColorStop(0.5,  '#4a3520');
+    grad.addColorStop(1,    '#1f1509');
+
+    ctx.fillStyle = grad;
+    ctx.fillRect(
+      CENTER_X - TRUNK_WIDTH / 2,
+      TRUNK_TOP,
+      TRUNK_WIDTH,
+      TRUNK_BOTTOM - TRUNK_TOP
+    );
+
+    // Bark texture — short horizontal striations
+    ctx.strokeStyle = 'rgba(20, 14, 8, 0.55)';
+    ctx.lineWidth = 1;
+    for (let y = TRUNK_TOP + 10; y < TRUNK_BOTTOM; y += 14) {
+      ctx.beginPath();
+      ctx.moveTo(CENTER_X - TRUNK_WIDTH / 2 + 2, y);
+      ctx.quadraticCurveTo(CENTER_X, y + 4, CENTER_X + TRUNK_WIDTH / 2 - 2, y);
+      ctx.stroke();
+    }
+
+    // Highlight stripe down the middle
+    ctx.strokeStyle = 'rgba(120, 90, 50, 0.4)';
+    ctx.lineWidth = 1.5;
+    ctx.beginPath();
+    ctx.moveTo(CENTER_X, TRUNK_TOP);
+    ctx.lineTo(CENTER_X, TRUNK_BOTTOM);
+    ctx.stroke();
+
+    // Energy pulses traveling up the trunk
+    if (!reduceMotion) {
+      const trunkLen = TRUNK_BOTTOM - TRUNK_TOP;
+      // Two pulses, offset in time, traveling upward
+      for (let i = 0; i < 2; i++) {
+        const t = ((time / 4500) + i * 0.5) % 1;
+        const py = TRUNK_BOTTOM - t * trunkLen;
+        const fade = Math.sin(t * Math.PI); // fade in/out at endpoints
+        const pulseGrad = ctx.createRadialGradient(CENTER_X, py, 1, CENTER_X, py, 14);
+        pulseGrad.addColorStop(0, 'rgba(245, 215, 110, ' + (0.55 * fade) + ')');
+        pulseGrad.addColorStop(1, 'rgba(245, 215, 110, 0)');
+        ctx.fillStyle = pulseGrad;
+        ctx.beginPath();
+        ctx.arc(CENTER_X, py, 14, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+  }
+
+  function drawBranch(x1, y1, x2, y2) {
+    // Outer (thicker, darker) stroke
+    ctx.beginPath();
+    ctx.moveTo(x1, y1);
+    const cpX = (x1 + x2) / 2;
+    const cpY = y1 + (y2 - y1) * 0.1;
+    ctx.quadraticCurveTo(cpX, cpY, x2, y2);
+
+    const grad = ctx.createLinearGradient(x1, y1, x2, y2);
+    grad.addColorStop(0, '#3a2a18');
+    grad.addColorStop(1, '#5a4028');
+    ctx.strokeStyle = grad;
+    ctx.lineWidth = 11;
+    ctx.lineCap = 'round';
+    ctx.stroke();
+
+    // Inner (thinner, lighter) highlight
+    ctx.beginPath();
+    ctx.moveTo(x1, y1);
+    ctx.quadraticCurveTo(cpX, cpY, x2, y2);
+    ctx.strokeStyle = 'rgba(110, 80, 45, 0.7)';
+    ctx.lineWidth = 3;
+    ctx.stroke();
+  }
+
+  // Per-wheel rotation speeds for the decorative tick marks (radians/sec)
+  const WHEEL_ROT_SPEEDS = {
+    'top-left':     0.04,
+    'top-right':   -0.05,
+    'bottom-left': -0.035,
+    'bottom-right': 0.045
+  };
+
+  function drawWheel(wheel, time, dt) {
+    const pos = WHEEL_POSITIONS[wheel.position];
+
+    // Outer decorative ring (thick parchment-gold)
+    ctx.beginPath();
+    ctx.arc(pos.x, pos.y, WHEEL_OUTER_R, 0, Math.PI * 2);
+    ctx.strokeStyle = '#8a7048';
+    ctx.lineWidth = 4;
+    ctx.stroke();
+
+    // Inner ring (wheel accent color) — slow opacity breathing
+    const breath = reduceMotion ? 0.55 : (0.5 + 0.15 * Math.sin(time / 1500));
+    ctx.beginPath();
+    ctx.arc(pos.x, pos.y, WHEEL_INNER_R, 0, Math.PI * 2);
+    ctx.strokeStyle = wheel.accentColor;
+    ctx.globalAlpha = breath;
+    ctx.lineWidth = 1.5;
+    ctx.stroke();
+    ctx.globalAlpha = 1;
+
+    // Decorative tick marks — slowly rotating around the outer ring.
+    // Each wheel rotates at a slightly different speed/direction.
+    const rotOffset = reduceMotion ? 0 : (time / 1000) * WHEEL_ROT_SPEEDS[wheel.position];
+    for (let i = 0; i < 12; i++) {
+      const ang = (i / 12) * Math.PI * 2 - Math.PI / 2 + rotOffset;
+      const tx1 = pos.x + Math.cos(ang) * (WHEEL_OUTER_R + 2);
+      const ty1 = pos.y + Math.sin(ang) * (WHEEL_OUTER_R + 2);
+      const tx2 = pos.x + Math.cos(ang) * (WHEEL_OUTER_R + 6);
+      const ty2 = pos.y + Math.sin(ang) * (WHEEL_OUTER_R + 6);
+      ctx.beginPath();
+      ctx.moveTo(tx1, ty1);
+      ctx.lineTo(tx2, ty2);
+      ctx.strokeStyle = 'rgba(138, 112, 72, 0.7)';
+      ctx.lineWidth = 1;
+      ctx.stroke();
+    }
+
+    // Spokes from hub to each node
+    const nodeCount = wheel.nodes.length;
+    for (let i = 0; i < nodeCount; i++) {
+      const ang = (i / nodeCount) * Math.PI * 2 - Math.PI / 2;
+      const nx  = pos.x + Math.cos(ang) * NODE_DISTANCE;
+      const ny  = pos.y + Math.sin(ang) * NODE_DISTANCE;
+      const hx  = pos.x + Math.cos(ang) * (WHEEL_HUB_R + 4);
+      const hy  = pos.y + Math.sin(ang) * (WHEEL_HUB_R + 4);
+
+      ctx.beginPath();
+      ctx.moveTo(hx, hy);
+      ctx.lineTo(nx, ny);
+      ctx.strokeStyle = wheel.accentColor;
+      ctx.globalAlpha = 0.35;
+      ctx.lineWidth = 1;
+      ctx.stroke();
+      ctx.globalAlpha = 1;
+    }
+
+    // Hub — parchment medallion with the wheel label
+    const hubGrad = ctx.createRadialGradient(
+      pos.x - 8, pos.y - 8, 2,
+      pos.x,     pos.y,     WHEEL_HUB_R
+    );
+    hubGrad.addColorStop(0, '#2a2418');
+    hubGrad.addColorStop(1, '#100c08');
+
+    ctx.beginPath();
+    ctx.arc(pos.x, pos.y, WHEEL_HUB_R, 0, Math.PI * 2);
+    ctx.fillStyle = hubGrad;
+    ctx.fill();
+    ctx.lineWidth = 2;
+    ctx.strokeStyle = '#8a7048';
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.arc(pos.x, pos.y, WHEEL_HUB_R - 4, 0, Math.PI * 2);
+    ctx.strokeStyle = wheel.accentColor;
+    ctx.globalAlpha = 0.5;
+    ctx.lineWidth = 1;
+    ctx.stroke();
+    ctx.globalAlpha = 1;
+
+    // Hub icon — an emoji representing the discipline. Hovering the hub
+    // scales the icon up slightly and reveals a tooltip with the name.
+    const hubId    = wheel.id + '-hub';
+    const hubHover = getHoverBoost(hubId, dt);
+    const iconSize = 30 * (1 + hubHover * 0.18);
+
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    if (wheel.icon) {
+      // Emoji renders via the system color-emoji font (fallback from the stack)
+      ctx.font = iconSize + 'px "Segoe UI Emoji", "Apple Color Emoji", "Noto Color Emoji", sans-serif';
+      // Nudge down ~1px so the emoji optically centers in the hub
+      ctx.fillText(wheel.icon, pos.x, pos.y + 1);
+    } else {
+      // Fallback to the text label if no icon is set
+      setFitFont(wheel.label.toUpperCase(), (WHEEL_HUB_R - 4) * 2 - 4, '600', 11);
+      ctx.fillStyle = '#f5d76e';
+      ctx.fillText(wheel.label.toUpperCase(), pos.x, pos.y);
+    }
+
+    // Register the hub as a hover/tooltip target
+    addHitTarget(hubId, pos.x, pos.y, WHEEL_HUB_R - 2, {
+      name: wheel.label,
+      status: 'hub',
+      desc: wheel.desc || ''
+    });
+
+    // Skill nodes around the wheel
+    for (let i = 0; i < nodeCount; i++) {
+      const ang = (i / nodeCount) * Math.PI * 2 - Math.PI / 2;
+      const nx  = pos.x + Math.cos(ang) * NODE_DISTANCE;
+      const ny  = pos.y + Math.sin(ang) * NODE_DISTANCE;
+      const nodeId = wheel.id + '-' + i;
+      const hover  = getHoverBoost(nodeId, dt);
+
+      drawNode(nx, ny, wheel.nodes[i], time, hover);
+
+      // Register hit target for tooltip + hover state
+      addHitTarget(nodeId, nx, ny, NODE_RADIUS + 4, {
+        name: wheel.nodes[i].label,
+        status: wheel.nodes[i].status,
+        desc: wheel.nodes[i].desc
+      });
+    }
+  }
+
+  function drawNode(x, y, node, time, hover) {
+    const c = STATUS_COLORS[node.status];
+    hover = hover || 0;
+
+    // Hover scales the node up slightly
+    const scale = 1 + hover * 0.25;
+    const r = NODE_RADIUS * scale;
+
+    // Pulse glow for earned and in-progress nodes (different tints)
+    if (!reduceMotion && (node.status === 'earned' || node.status === 'in-progress')) {
+      const isEarned = node.status === 'earned';
+      const speed    = isEarned ? 850 : 1100;
+      const tint     = isEarned ? '245, 215, 110' : '160, 208, 96';
+      const intensity = isEarned ? 0.55 : 0.4;
+
+      const pulse = 0.55 + 0.25 * Math.sin(time / speed);
+      const glowR = r + 10 + 4 * Math.sin(time / speed) + hover * 14;
+      const glow = ctx.createRadialGradient(x, y, r - 2, x, y, glowR);
+      glow.addColorStop(0, 'rgba(' + tint + ', ' + (pulse * intensity + hover * 0.25) + ')');
+      glow.addColorStop(1, 'rgba(' + tint + ', 0)');
+      ctx.fillStyle = glow;
+      ctx.beginPath();
+      ctx.arc(x, y, glowR, 0, Math.PI * 2);
+      ctx.fill();
+    } else if (hover > 0.01) {
+      // Locked nodes still get a faint hover glow for affordance
+      const glowR = r + 8 + hover * 10;
+      const glow = ctx.createRadialGradient(x, y, r - 2, x, y, glowR);
+      glow.addColorStop(0, 'rgba(212, 168, 71, ' + (hover * 0.3) + ')');
+      glow.addColorStop(1, 'rgba(212, 168, 71, 0)');
+      ctx.fillStyle = glow;
+      ctx.beginPath();
+      ctx.arc(x, y, glowR, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    // Outer decorative ring
+    ctx.beginPath();
+    ctx.arc(x, y, r + 2, 0, Math.PI * 2);
+    ctx.strokeStyle = c.ring;
+    ctx.globalAlpha = (node.status === 'locked' ? 0.4 : 0.85) + hover * 0.15;
+    ctx.lineWidth = 1.2 + hover * 0.6;
+    ctx.stroke();
+    ctx.globalAlpha = 1;
+
+    // Inner filled medallion
+    const fillGrad = ctx.createRadialGradient(x - 3, y - 3, 1, x, y, r);
+    if (node.status === 'earned') {
+      fillGrad.addColorStop(0, '#f5d76e');
+      fillGrad.addColorStop(1, '#a07d28');
+    } else if (node.status === 'in-progress') {
+      fillGrad.addColorStop(0, '#a0d060');
+      fillGrad.addColorStop(1, '#5d8a3a');
+    } else {
+      fillGrad.addColorStop(0, '#2a2418');
+      fillGrad.addColorStop(1, '#100c08');
+    }
+
+    ctx.beginPath();
+    ctx.arc(x, y, r, 0, Math.PI * 2);
+    ctx.fillStyle = fillGrad;
+    ctx.fill();
+    ctx.lineWidth = 1.2;
+    ctx.strokeStyle = c.stroke;
+    ctx.stroke();
+  }
+
+  function drawMilestones(time, dt) {
+    const startY = TRUNK_TOP + 20;
+    const endY   = TRUNK_BOTTOM - 20;
+    const step   = (endY - startY) / (SKILL_DATA.milestones.length - 1);
+
+    SKILL_DATA.milestones.forEach((m, i) => {
+      const y = startY + step * i;
+      const x = CENTER_X;
+      const id = 'milestone-' + i;
+      const hover = getHoverBoost(id, dt);
+
+      drawMilestoneNode(x, y, m, time, hover);
+      drawMilestoneLabel(x, y, m, i, hover);
+
+      addHitTarget(id, x, y, NODE_RADIUS + 8, {
+        name: m.label + ' — ' + m.sub,
+        status: m.status,
+        desc: ''
+      });
+    });
+  }
+
+  function drawMilestoneNode(x, y, m, time, hover) {
+    const c = STATUS_COLORS[m.status];
+    hover = hover || 0;
+    const scale = 1 + hover * 0.25;
+    const r = (NODE_RADIUS + 1) * scale;
+
+    if (!reduceMotion && (m.status === 'earned' || m.status === 'in-progress')) {
+      const isEarned = m.status === 'earned';
+      const speed    = isEarned ? 850 : 1100;
+      const tint     = isEarned ? '245, 215, 110' : '160, 208, 96';
+      const intensity = isEarned ? 0.55 : 0.4;
+
+      const pulse = 0.55 + 0.25 * Math.sin(time / speed);
+      const glowR = r + 8 + 4 * Math.sin(time / speed) + hover * 14;
+      const glow = ctx.createRadialGradient(x, y, 3, x, y, glowR);
+      glow.addColorStop(0, 'rgba(' + tint + ', ' + (pulse * intensity + hover * 0.25) + ')');
+      glow.addColorStop(1, 'rgba(' + tint + ', 0)');
+      ctx.fillStyle = glow;
+      ctx.beginPath();
+      ctx.arc(x, y, glowR, 0, Math.PI * 2);
+      ctx.fill();
+    } else if (hover > 0.01) {
+      const glowR = r + 8 + hover * 10;
+      const glow = ctx.createRadialGradient(x, y, r - 2, x, y, glowR);
+      glow.addColorStop(0, 'rgba(212, 168, 71, ' + (hover * 0.3) + ')');
+      glow.addColorStop(1, 'rgba(212, 168, 71, 0)');
+      ctx.fillStyle = glow;
+      ctx.beginPath();
+      ctx.arc(x, y, glowR, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    // Decorative outer
+    ctx.beginPath();
+    ctx.arc(x, y, r + 3, 0, Math.PI * 2);
+    ctx.strokeStyle = '#8a7048';
+    ctx.lineWidth = 1.5 + hover * 0.5;
+    ctx.stroke();
+
+    // Inner medallion
+    const fillGrad = ctx.createRadialGradient(x - 3, y - 3, 1, x, y, r);
+    if (m.status === 'earned') {
+      fillGrad.addColorStop(0, '#f5d76e');
+      fillGrad.addColorStop(1, '#a07d28');
+    } else if (m.status === 'in-progress') {
+      fillGrad.addColorStop(0, '#a0d060');
+      fillGrad.addColorStop(1, '#5d8a3a');
+    } else {
+      fillGrad.addColorStop(0, '#2a2418');
+      fillGrad.addColorStop(1, '#100c08');
+    }
+    ctx.beginPath();
+    ctx.arc(x, y, r, 0, Math.PI * 2);
+    ctx.fillStyle = fillGrad;
+    ctx.fill();
+    ctx.lineWidth = 1.2;
+    ctx.strokeStyle = c.stroke;
+    ctx.stroke();
+  }
+
+  // Y positions where horizontal branches join the trunk. Milestone
+  // labels near these get nudged vertically so they don't sit on a branch.
+  const BRANCH_JOIN_YS = [260, 580];
+
+  function milestoneLabelNudge(y) {
+    for (let i = 0; i < BRANCH_JOIN_YS.length; i++) {
+      const by = BRANCH_JOIN_YS[i];
+      if (Math.abs(y - by) < 40) {
+        // Push the label to the side of the branch the node sits on.
+        return y <= by ? -24 : 24;
+      }
+    }
+    return 0;
+  }
+
+  function drawMilestoneLabel(x, y, m, i, hover) {
+    // Alternate left/right side of trunk
+    const onRight = i % 2 === 0;
+    const offset  = 40 + (hover || 0) * 4;
+    const lx = onRight ? x + offset : x - offset;
+    const align = onRight ? 'left' : 'right';
+
+    // Shift the label vertically clear of any branch it would overlap
+    const ny = y + milestoneLabelNudge(y);
+
+    // Max label width = horizontal space between trunk-side and nearest wheel edge.
+    // Wheel right-edge on left side ≈ x=288; trunk left edge ≈ x=440. → ~150px usable.
+    const maxLabelWidth = 145;
+
+    ctx.textAlign = align;
+    ctx.textBaseline = 'middle';
+
+    // Age line — brightens slightly on hover
+    ctx.fillStyle = STATUS_COLORS[m.status].label;
+    ctx.globalAlpha = 0.95 + (hover || 0) * 0.05;
+    ctx.font = (hover > 0.5 ? '700' : '600') + ' 13px Cinzel, serif';
+    ctx.fillText(m.label, lx, ny - 7);
+
+    // Sub line — auto-fit so long descriptions never reach the wheel
+    ctx.fillStyle = m.status === 'locked' ? '#665c4a' : '#c4b48c';
+    setFitFont(m.sub, maxLabelWidth, '400', 10);
+    ctx.fillText(m.sub, lx, ny + 8);
+    ctx.globalAlpha = 1;
+  }
+
+  function drawBanner(time) {
+    const bx = CENTER_X;
+    const by = 60;
+    const bw = 320;
+    const bh = 48;
+
+    // Banner background
+    const grad = ctx.createLinearGradient(0, by - bh / 2, 0, by + bh / 2);
+    grad.addColorStop(0, '#2a1f12');
+    grad.addColorStop(0.5, '#3e2d18');
+    grad.addColorStop(1, '#1c130a');
+
+    ctx.fillStyle = grad;
+    ctx.beginPath();
+    ctx.moveTo(bx - bw / 2, by - bh / 2);
+    ctx.lineTo(bx + bw / 2, by - bh / 2);
+    ctx.lineTo(bx + bw / 2 + 12, by);
+    ctx.lineTo(bx + bw / 2, by + bh / 2);
+    ctx.lineTo(bx - bw / 2, by + bh / 2);
+    ctx.lineTo(bx - bw / 2 - 12, by);
+    ctx.closePath();
+    ctx.fill();
+
+    ctx.strokeStyle = '#8a7048';
+    ctx.lineWidth = 1.5;
+    ctx.stroke();
+
+    // Banner text
+    ctx.fillStyle = '#f5d76e';
+    ctx.font = '700 18px Cinzel, serif';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText('Josh · Skill Tree', bx, by);
+
+    // Small ornaments on either side
+    ctx.fillStyle = '#a07d28';
+    ctx.beginPath();
+    ctx.arc(bx - bw / 2 + 12, by, 2.5, 0, Math.PI * 2);
+    ctx.arc(bx + bw / 2 - 12, by, 2.5, 0, Math.PI * 2);
+    ctx.fill();
+  }
+
+  function drawLeaves() {
+    // Decorative leaf ellipses scattered near each wheel's branch joint
+    const leafPoints = [
+      { x: 320, y: 240 }, { x: 340, y: 270 },
+      { x: 580, y: 240 }, { x: 560, y: 270 },
+      { x: 320, y: 600 }, { x: 340, y: 570 },
+      { x: 580, y: 600 }, { x: 560, y: 570 }
+    ];
+
+    leafPoints.forEach((p, i) => {
+      ctx.save();
+      ctx.translate(p.x, p.y);
+      ctx.rotate((i * 35) * Math.PI / 180);
+
+      const leafGrad = ctx.createLinearGradient(-8, 0, 8, 0);
+      leafGrad.addColorStop(0, 'rgba(80, 110, 40, 0.5)');
+      leafGrad.addColorStop(1, 'rgba(40, 60, 20, 0.5)');
+      ctx.fillStyle = leafGrad;
+
+      ctx.beginPath();
+      ctx.ellipse(0, 0, 9, 4, 0, 0, Math.PI * 2);
+      ctx.fill();
+
+      ctx.strokeStyle = 'rgba(60, 80, 30, 0.6)';
+      ctx.lineWidth = 0.8;
+      ctx.beginPath();
+      ctx.moveTo(-9, 0);
+      ctx.lineTo(9, 0);
+      ctx.stroke();
+
+      ctx.restore();
+    });
+  }
+
+
+  /* =============================================================
+     Main draw loop
+     ============================================================= */
+  let lastTime = performance.now();
+
+  function draw(time) {
+    // Clamp deltaTime so a long pause (e.g. backgrounded tab) doesn't
+    // cause particles or animations to jump dramatically on resume.
+    const dt = Math.min(time - lastTime, 50);
+    lastTime = time;
+
+    hitTargets = [];
+    ctx.clearRect(0, 0, W, H);
+
+    // Order: particles (background) → branches → trunk → wheels →
+    //        milestones → leaves → banner (foreground)
+    updateAndDrawParticles(time, dt);
+
+    SKILL_DATA.wheels.forEach(w => {
+      const pos = WHEEL_POSITIONS[w.position];
+      drawBranch(CENTER_X, pos.branchY, pos.x + (pos.x < CENTER_X ? WHEEL_OUTER_R : -WHEEL_OUTER_R), pos.y);
+    });
+
+    drawTrunk(time);
+    SKILL_DATA.wheels.forEach(w => drawWheel(w, time, dt));
+    drawMilestones(time, dt);
+    drawLeaves();
+    drawBanner(time);
+
+    requestAnimationFrame(draw);
+  }
+  requestAnimationFrame(draw);
+
+
+  /* =============================================================
+     Tooltip / hit-testing
+     ============================================================= */
+  const tooltip       = document.getElementById('tooltip');
+  const tooltipName   = tooltip.querySelector('.tooltip-name');
+  const tooltipStatus = tooltip.querySelector('.tooltip-status');
+  const tooltipDesc   = tooltip.querySelector('.tooltip-desc');
+
+  function getCanvasPos(event) {
+    const rect = canvas.getBoundingClientRect();
+    const scaleX = W / rect.width;
+    const scaleY = H / rect.height;
+    return {
+      x: (event.clientX - rect.left) * scaleX,
+      y: (event.clientY - rect.top)  * scaleY
+    };
+  }
+
+  function findHit(p) {
+    for (let i = hitTargets.length - 1; i >= 0; i--) {
+      const t = hitTargets[i];
+      const dx = p.x - t.x;
+      const dy = p.y - t.y;
+      if (dx * dx + dy * dy <= t.r * t.r) return t;
+    }
+    return null;
+  }
+
+  canvas.addEventListener('mousemove', (e) => {
+    const p = getCanvasPos(e);
+    const hit = findHit(p);
+
+    if (hit) {
+      hoveredId = hit.id;
+      canvas.style.cursor = 'pointer';
+      tooltipName.textContent = hit.data.name;
+
+      // Wheel hubs have no earned/locked status — hide the status pill
+      // and just show the discipline name + description.
+      if (hit.data.status === 'hub') {
+        tooltipStatus.style.display = 'none';
+      } else {
+        tooltipStatus.style.display = '';
+        tooltipStatus.textContent = hit.data.status.replace('-', ' ').toUpperCase();
+        tooltipStatus.className = 'tooltip-status ' + hit.data.status;
+      }
+      tooltipDesc.textContent = hit.data.desc;
+      tooltipDesc.style.display = hit.data.desc ? '' : 'none';
+
+      tooltip.style.left = e.clientX + 'px';
+      tooltip.style.top  = e.clientY + 'px';
+      tooltip.classList.add('is-visible');
+    } else {
+      hoveredId = null;
+      canvas.style.cursor = 'default';
+      tooltip.classList.remove('is-visible');
+    }
+  });
+
+  canvas.addEventListener('mouseleave', () => {
+    hoveredId = null;
+    tooltip.classList.remove('is-visible');
+  });
+
+
+  /* =============================================================
+     Mobile fallback — render list view from the same data
+     ============================================================= */
+  function renderMobile() {
+    const wheelsEl = document.getElementById('mobileWheels');
+    const milestonesEl = document.getElementById('mobileMilestones');
+
+    wheelsEl.innerHTML = SKILL_DATA.wheels.map(w => {
+      const counts = { earned: 0, 'in-progress': 0, locked: 0 };
+      w.nodes.forEach(n => counts[n.status]++);
+      return (
+        '<div class="mobile-card fade-up">' +
+          '<h2>' + w.label + '</h2>' +
+          '<div class="mobile-card-stats">' +
+            '<span class="mobile-stat earned"><span class="dot"></span>' + counts.earned + ' earned</span>' +
+            '<span class="mobile-stat in-progress"><span class="dot"></span>' + counts['in-progress'] + ' in progress</span>' +
+            '<span class="mobile-stat locked"><span class="dot"></span>' + counts.locked + ' locked</span>' +
+          '</div>' +
+        '</div>'
+      );
+    }).join('');
+
+    milestonesEl.innerHTML = SKILL_DATA.milestones.map(m => (
+      '<div class="mobile-milestone">' +
+        '<span class="age">' + m.label + '</span>' +
+        '<span class="info">' + m.sub +
+          ' <span class="mobile-stat ' + m.status + '" style="margin-left:0.4rem;font-size:0.7rem;">' +
+            '<span class="dot"></span>' + m.status.replace('-', ' ') +
+          '</span>' +
+        '</span>' +
+      '</div>'
+    )).join('');
+  }
+  renderMobile();
+
+
+  /* =============================================================
+     Page-wide ambient embers — inject a fixed gold-mote layer that
+     drifts up across the entire page (behind all content), so the
+     "alive" feel extends to the very top, not just the canvas.
+     ============================================================= */
+  (function setupEmbers() {
+    if (reduceMotion) return;
+
+    const COUNT = 26;
+    const layer = document.createElement('div');
+    layer.className = 'embers';
+    layer.setAttribute('aria-hidden', 'true');
+
+    for (let i = 0; i < COUNT; i++) {
+      const e = document.createElement('span');
+      e.className = 'ember';
+      const x     = Math.random() * 100;
+      const delay = Math.random() * 12;
+      const dur   = 9 + Math.random() * 6;
+      const drift = (Math.random() - 0.5) * 60;
+      const size  = 2 + Math.random() * 2;
+      e.style.cssText =
+        '--x:'     + x.toFixed(1)     + '%;'  +
+        '--delay:' + delay.toFixed(1) + 's;'  +
+        '--dur:'   + dur.toFixed(1)   + 's;'  +
+        '--drift:' + drift.toFixed(0) + 'px;' +
+        '--size:'  + size.toFixed(1)  + 'px;';
+      layer.appendChild(e);
+    }
+
+    document.body.appendChild(layer);
+  })();
+  </script>
+
+</body>
+</html>
