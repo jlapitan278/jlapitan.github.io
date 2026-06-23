@@ -388,6 +388,31 @@ p {
   line-height: 1;
 }
 
+/* Top row of a card — icon on the left, status badge on the right */
+.card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+/* Status badge (e.g. "Planned") shown on in-progress / upcoming projects */
+.card-badge {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.2rem 0.55rem;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+.card-badge.planned {
+  color: #e0b84a;
+  background: rgba(224, 184, 74, 0.12);
+  border: 1px solid rgba(224, 184, 74, 0.35);
+}
+
 .card-title {
   font-size: 1.05rem;
   font-weight: 600;
@@ -435,6 +460,15 @@ p {
 .card-link::after {
   content: '→';
   transition: transform 0.2s ease;
+}
+
+/* Static label (e.g. "Coming soon") — no arrow, muted, not clickable */
+.card-link.is-static {
+  color: var(--text-muted);
+  cursor: default;
+}
+.card-link.is-static::after {
+  content: none;
 }
 
 .card:hover .card-link::after {
