@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<meta name="referrer" content="no-referrer">
+<title>Hawaii 2026 — Itinerary</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ocean:#0e7c86; --ocean-d:#0a5b63; --coral:#ff6f4d; --sun:#ffb03a;
+    --sand:#fff8ee; --ink:#173040; --muted:#5c7480; --card:#ffffff;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:'Poppins',system-ui,Arial,sans-serif;color:var(--ink);
+    background:linear-gradient(180deg,#eef8f7 0%,var(--sand) 40%);}
+  .wrap{max-width:1100px;margin:0 auto;padding:0 22px 60px;}
+  .hero{position:relative;border-radius:0 0 26px 26px;overflow:hidden;margin-bottom:34px;
+    box-shadow:0 14px 34px rgba(14,124,134,.28);}
+  .hero img{width:100%;height:300px;object-fit:cover;display:block;filter:saturate(1.05);}
+  .hero .veil{position:absolute;inset:0;background:linear-gradient(90deg,rgba(10,91,99,.55),rgba(255,111,77,.25) 60%,transparent);}
+  .hero .htext{position:absolute;left:38px;bottom:28px;color:#fff;text-shadow:0 2px 14px rgba(0,0,0,.45);}
+  .hero .kicker{font-weight:600;letter-spacing:.32em;text-transform:uppercase;font-size:13px;opacity:.95;}
+  .hero h1{font-family:'Pacifico',cursive;font-weight:400;margin:.12em 0 .05em;font-size:56px;line-height:1;}
+  .hero .sub{font-size:16px;font-weight:500;opacity:.96;}
+  .day{background:var(--card);border-radius:20px;overflow:hidden;margin:0 0 26px;
+    box-shadow:0 8px 22px rgba(23,48,64,.10);border:1px solid rgba(14,124,134,.08);
+    page-break-inside:avoid;}
+  .banner{position:relative;height:74px;overflow:hidden;}
+  .banner img{width:100%;height:100%;object-fit:cover;object-position:center 62%;}
+  .banner-fade{position:absolute;inset:0;background:linear-gradient(90deg,rgba(14,124,134,.30),rgba(255,176,58,.20));}
+  .dayhead{display:flex;align-items:center;justify-content:space-between;padding:14px 22px 6px;}
+  .datewrap{display:flex;align-items:baseline;gap:12px;}
+  .dow{font-family:'Pacifico',cursive;color:var(--coral);font-size:26px;}
+  .date{font-weight:600;color:var(--ocean-d);font-size:17px;letter-spacing:.02em;}
+  .daytag{background:linear-gradient(135deg,var(--sun),var(--coral));color:#fff;font-weight:600;
+    font-size:12px;letter-spacing:.14em;text-transform:uppercase;padding:6px 13px;border-radius:999px;}
+  .cards{display:flex;flex-wrap:wrap;gap:12px 10px;padding:10px 22px 14px;align-items:flex-start;}
+  .card{width:210px;background:#fff;border-radius:14px;overflow:hidden;
+    box-shadow:0 4px 12px rgba(23,48,64,.12);border:1px solid rgba(23,48,64,.06);}
+  .thumb{width:100%;height:132px;overflow:hidden;background:#dfeceb;}
+  .thumb img{width:100%;height:100%;object-fit:cover;display:block;}
+  .cap{padding:9px 11px 11px;}
+  .time{display:block;font-weight:700;color:var(--coral);font-size:12.5px;letter-spacing:.04em;}
+  .title{display:block;font-weight:500;color:var(--ink);font-size:13.5px;line-height:1.28;margin-top:2px;}
+  .arrow{align-self:center;color:var(--ocean);font-size:26px;font-weight:700;padding-bottom:26px;opacity:.65;}
+  .daybody{display:flex;flex-wrap:wrap;gap:16px;margin:2px 22px 22px;align-items:stretch;}
+  .plan{flex:1.7 1 340px;padding:16px 20px 6px;background:#f6fbfa;border-radius:14px;
+    border:1px solid rgba(14,124,134,.10);}
+  .plan-h{margin:0 0 10px;font-family:'Pacifico',cursive;font-weight:400;color:var(--ocean-d);font-size:22px;}
+  .evlist{list-style:none;margin:0;padding:0;}
+  .ev{display:flex;gap:14px;padding:9px 0;border-top:1px dashed #e0e8e6;}
+  .ev:first-child{border-top:none;}
+  .ev-time{flex:0 0 84px;font-weight:700;color:var(--coral);font-size:13.5px;padding-top:1px;text-align:right;}
+  .ev-body{flex:1;}
+  .ev-title{font-weight:600;color:var(--ink);font-size:14.5px;}
+  .subs{margin:5px 0 0;padding-left:18px;color:var(--muted);font-size:13px;line-height:1.6;}
+  .subs li{margin:0;}
+  .food{flex:1 1 230px;padding:16px 20px;background:#fff5ec;border-radius:14px;
+    border:1px solid rgba(255,111,77,.16);}
+  .food-h{margin:0 0 10px;font-family:'Pacifico',cursive;font-weight:400;color:var(--coral);font-size:22px;}
+  .meallist{list-style:none;margin:0;padding:0;}
+  .meal{padding:8px 0;border-top:1px dashed #f0ded1;}
+  .meal:first-child{border-top:none;}
+  .meal-k{display:block;font-weight:700;color:var(--sun);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;}
+  .meal-v{display:block;color:var(--ink);font-size:14px;line-height:1.35;margin-top:1px;}
+  .packing{background:var(--card);border-radius:20px;padding:24px 26px 26px;margin-top:34px;
+    box-shadow:0 8px 22px rgba(23,48,64,.10);border:1px solid rgba(14,124,134,.08);}
+  .packing h2{font-family:'Pacifico',cursive;color:var(--ocean-d);font-weight:400;font-size:32px;margin:0 0 14px;}
+  .packlist{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:8px 26px;}
+  .packlist li{display:flex;align-items:center;gap:11px;font-size:15px;color:var(--ink);
+    padding:7px 0;border-bottom:1px dashed #e5ded2;}
+  .chk{flex:0 0 18px;height:18px;border:2px solid var(--ocean);border-radius:5px;display:inline-block;}
+  .pricing{background:var(--card);border-radius:20px;padding:24px 26px 26px;margin-top:26px;
+    box-shadow:0 8px 22px rgba(23,48,64,.10);border:1px solid rgba(14,124,134,.08);}
+  .pricing h2{font-family:'Pacifico',cursive;color:var(--ocean-d);font-weight:400;font-size:32px;margin:0 0 14px;}
+  .prlist{list-style:none;margin:0;padding:0;}
+  .pr{display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding:11px 0;border-top:1px dashed #e5ded2;}
+  .pr:first-child{border-top:none;}
+  .pr-name{font-weight:600;color:var(--ink);font-size:15px;}
+  .pr-note{display:block;color:var(--muted);font-size:13px;margin-top:2px;}
+  .pr-amt{font-weight:700;color:var(--ocean-d);font-size:15px;white-space:nowrap;}
+  .prtotal{display:flex;justify-content:space-between;align-items:center;margin-top:14px;
+    background:linear-gradient(135deg,var(--sun),var(--coral));color:#fff;border-radius:14px;
+    padding:14px 20px;font-weight:600;font-size:17px;letter-spacing:.02em;}
+  .prtotal-amt{font-size:20px;font-weight:700;}
+  .prnote{color:var(--muted);font-size:12.5px;margin:12px 0 0;}
+  footer{text-align:center;color:var(--muted);font-size:12px;margin-top:26px;}
+  @media (max-width:520px){ .hero h1{font-size:40px;} .card{width:calc(50% - 6px);} .arrow{display:none;} .ev-time{flex-basis:72px;} }
+  @media print{ body{background:#fff;} .day,.packing,.pricing{box-shadow:none;border:1px solid #ddd;} }
+</style>
+</head>
+<body>
+  <div class="hero">
+    <img src="assets/header-beach-sunset.jpg" alt="Hawaii sunset beach with palms">
+    <div class="veil"></div>
+    <div class="htext">
+      <div class="kicker">Oahu &middot; Summer 2026</div>
+      <h1>Aloha, Hawaii</h1>
+      <div class="sub">July 31 &ndash; August 9 &nbsp;&bull;&nbsp; 10 days of sun, surf &amp; good company</div>
+    </div>
+  </div>
+  <div class="wrap">
+
+    <section class="day">
+      <div class="banner"><img src="assets/header-beach-sunset.jpg" alt="Hawaii beach banner"><div class="banner-fade"></div></div>
+      <div class="dayhead">
+        <div class="datewrap"><span class="dow">Friday</span><span class="date">July 31</span></div>
+        
+      </div>
+      <div class="cards">
+        <div class="card">
+          <div class="thumb"><img loading="lazy" src="assets/plane-landing-night.jpg" alt="Jiffer Lands"></div>
+          <div class="cap"><span class="time">9:20 PM</span><span class="title">Jiffer Lands</span></div>
+        </div></div>
+      <div class="daybody"><div class="plan"><h4 class="plan-h">The Plan</h4><ul class="evlist"><li class="ev"><span class="ev-time">9:20 PM</span><span class="ev-body"><span class="ev-title">Jiffer Lands</span></span></li></ul></div><div class="food"><h4 class="food-h">Eats</h4><ul class="meallist"><li class="meal"><span class="meal-k">Dinner</span><span class="meal-v">Canes or something</span></li></ul></div></div>
+    </section>
+    <section class="day">
+      <div class="banner"><img src="assets/header-beach-sunset.jpg" alt="Hawaii beach banner"><div class="banner-fade"></div></div>
+      <div class="dayhead">
+        <div class="datewrap"><span class="dow">Saturday</span><span class="date">Aug 1</span></div>
+        
+      </div>
+      <div class="cards">
+        <div class="card">
+          <div class="thumb"><img loading="lazy" src="assets/plane-landing-night.jpg" alt="Aron Lands"></div>
+          <div class="cap"><span class="time">11:43 AM</span><span class="title">Aron Lands</span></div>
+        </div><div class="arrow" aria-hidden="true">&#8594;</div>
+        <div class="card">
+          <div class="thumb"><img loading="lazy" src="assets/bike-coastal.jpg" alt="North Shore Bike Riding"></div>
+          <div class="cap"><span class="time">2:00 PM</span><span class="title">North Shore Bike Riding</span></div>
+        </div></div>
+      <div class="daybody"><div class="plan"><h4 class="plan-h">The Plan</h4><ul class="evlist"><li class="ev"><span class="ev-time">11:43 AM</span><span class="ev-body"><span class="ev-title">Aron Lands</span></span></li><li class="ev"><span class="ev-time">2:00 PM</span><span class="ev-body"><span class="ev-title">North Shore Bike Riding</span></span></li></ul></div><div class="food"><h4 class="food-h">Eats</h4><ul class="meallist"><li class="meal"><span class="meal-k">Breakfast</span><span class="meal-v">Spam or shit</span></li><li class="meal"><span class="meal-k">Lunch</span><span class="meal-v">Genki</span></li><li class="meal"><span class="meal-k">Dinner</span><span class="meal-v">Something, maybe birria tacos</span></li></ul></div></div>
+    </section>
+    <section class="day">
+      <div class="banner"><img src="assets/header-beach-sunset.jpg" alt="Hawaii beach banner"><div class="banner-fade"></div></div>
+      <div class="dayhead">
+        <div class="datewrap"><span class="dow">Sunday</span><span class="date">Aug 2</span></div>
+        
+      </div>
+      <div class="cards">
+        <div class="card">
+          <div class="thumb"><img loading="lazy" src="assets/hike-lush.jpg" alt="Morning Hike – Crouching Lion"></div>
+          <div class="cap"><span class="time">9:00 AM</span><span class="title">Morning Hike – Crouching Lion</span></div>
+        </div><div class="arrow" aria-hidden="true">&#8594;</div>
+        <div class="card">
+          <div class="thumb"><img loading="lazy" src="assets/surf.jpg" alt="Surfing"></div>
+          <div class="cap"><span class="time">1:30 PM</span><span class="title">Surfing</span></div>
+        </div><div class="arrow" aria-hidden="true">&#8594;</div>
+        <div class="card">
+          <div class="thumb"><img loading="lazy" src="assets/plane-landing-night.jpg" alt="Krystyn Lands"></div>
+          <div class="cap"><span class="time">9:20 PM</span><span class="title">Krystyn Lands</span></div>
+        </div></div>
+      <div class="daybody"><div class="plan"><h4 class="plan-h">The Plan</h4><ul class="evlist"><li class="ev"><span class="ev-time">9:00 AM</span><span class="ev-body"><span class="ev-title">Morning Hike – Crouching Lion</span></span></li><li class="ev"><span class="ev-time">1:30 PM</span><span class="ev-body"><span class="ev-title">Surfing</span></span></li><li class="ev"><span class="ev-time">9:20 PM</span><span class="ev-body"><span class="ev-title">Krystyn Lands</span></span></li></ul></div><div class="food"><h4 class="food-h">Eats</h4><ul class="meallist"><li class="meal"><span class="meal-k">Breakfast</span><span class="meal-v">Corned beef probably</span></li><li class="meal"><span class="meal-k">Lunch</span><span class="meal-v">Something light for surfing</span></li><li class="meal"><span class="meal-k">Dinner</span><span class="meal-v">Costco pizza for Aron and cheap for Krystyn</span></li></ul></div></div>
+    </section>
+    <section class="day">
+      <div class="banner"><img src="assets/header-beach-sunset.jpg" alt="Hawaii beach banner"><div class="banner-fade"></div></div>
+      <div class="dayhead">
+        <div class="datewrap"><span class="dow">Monday</span><span class="date">Aug 3</span></div>
+        
+      </div>
+      <div class="cards">
+        <div class="card">
+          <div class="thumb"><img loading="lazy" src="assets/hike-lush.jpg" alt="Non-Workers Hike – Kaena Point"></div>
+          <div class="cap"><span class="time">9:00 AM</span><span class="title">Non-Workers Hike – Kaena Point</span></div>
+        </div><div class="arrow" aria-hidden="true">&#8594;</div>
+        <div class="card">
+          <div class="thumb"><img loading="lazy" src="assets/plane-landing-night.jpg" alt="Christian &amp; Amanda Land"></div>
+          <div class="cap"><span class="time">1:20 PM</span><span class="title">Christian &amp; Amanda Land</span></div>
+        </div><div class="arrow" aria-hidden="true">&#8594;</div>
+        <div class="card">
+          <div class="thumb"><img loading="lazy" src="assets/ala-moana-palms.jpg" alt="Head to Ala Moana"></div>
+          <div class="cap"><span class="time">1:30 PM</span><span class="title">Head to Ala Moana</span></div>
+        </div><div class="arrow" aria-hidden="true">&#8594;</div>
+        <div class="card">
+          <div class="thumb"><img loading="lazy" src="assets/movie-theater.jpg" alt="Spiderman – Mililani"></div>
+          <div class="cap"><span class="time">6:50 PM</span><span class="title">Spiderman – Mililani</span></div>
+        </div></div>
+      <div class="daybody"><div class="plan"><h4 class="plan-h">The Plan</h4><ul class="evlist"><li class="ev"><span class="ev-time">9:00 AM</span><span class="ev-body"><span class="ev-title">Non-Workers Hike – Kaena Point</span></span></li><li class="ev"><span class="ev-time">1:20 PM</span><span class="ev-body"><span class="ev-title">Christian &amp; Amanda Land</span></span></li><li class="ev"><span class="ev-time">1:30 PM</span><span class="ev-body"><span class="ev-title">Head to Ala Moana</span></span></li><li class="ev"><span class="ev-time">6:50 PM</span><span class="ev-body"><span class="ev-title">Spiderman – Mililani</span></span></li></ul></div><div class="food"><h4 class="food-h">Eats</h4><ul class="meallist"><li class="meal"><span class="meal-k">Breakfast</span><span class="meal-v">Eggs and fried rice</span></li><li class="meal"><span class="meal-k">Lunch</span><span class="meal-v">Ala Moana</span></li><li class="meal"><span class="meal-k">Dinner</span><span class="meal-v">Some Zippy&#x27;s after Spiderman</span></li></ul></div></div>
+    </section>
+    <section class="day">
+      <div class="banner"><img src="assets/header-beach-sunset.jpg" alt="Hawaii beach banner"><div class="banner-fade"></div></div>
+      <div class="dayhead">
+        <div class="datewrap"><span class="dow">Tuesday</span><span class="date">Aug 4</span></div>
+        
+      </div>
+      <div class="cards">
+        <div class="card">
+          <div class="thumb"><img loading="lazy" src="assets/market-stalls.jpg" alt="Wai Kai / Pop-Up Market"></div>
+          <div class="cap"><span class="time">9:00 AM</span><span class="title">Wai Kai / Pop-Up Market</span></div>
+        </div><div class="arrow" aria-hidden="true">&#8594;</div>
+        <div class="card">
+          <div class="thumb"><img loading="lazy" src="assets/surf.jpg" alt="Surf/Beach – White Plains"></div>
+          <div class="cap"><span class="time">1:30 PM</span><span class="title">Surf/Beach – White Plains</span></div>
+        </div><div class="arrow" aria-hidden="true">&#8594;</div>
+        <div class="card">
+          <div class="thumb"><img loading="lazy" src="assets/korean-bbq.jpg" alt="Gen&#x27;s All-You-Can-Eat"></div>
+          <div class="cap"><span class="time">8:00 PM</span><span class="title">Gen&#x27;s All-You-Can-Eat</span></div>
+        </div></div>
+      <div class="daybody"><div class="plan"><h4 class="plan-h">The Plan</h4><ul class="evlist"><li class="ev"><span class="ev-time">9:00 AM</span><span class="ev-body"><span class="ev-title">Wai Kai / Pop-Up Market</span><ul class="subs"><li>Wai Kai</li><li>Pop-Up Market</li></ul></span></li><li class="ev"><span class="ev-time">1:30 PM</span><span class="ev-body"><span class="ev-title">Surf/Beach – White Plains</span></span></li><li class="ev"><span class="ev-time">8:00 PM</span><span class="ev-body"><span class="ev-title">Gen&#x27;s All-You-Can-Eat</span></span></li></ul></div><div class="food"><h4 class="food-h">Eats</h4><ul class="meallist"><li class="meal"><span class="meal-k">Breakfast</span><span class="meal-v">Eggs and shit, maybe McDees</span></li><li class="meal"><span class="meal-k">Lunch</span><span class="meal-v">Idk, Curry House</span></li><li class="meal"><span class="meal-k">Dinner</span><span class="meal-v">GENS for everyone who&#x27;s fat</span></li></ul></div></div>
+    </section>
+    <section class="day">
+      <div class="banner"><img src="assets/header-beach-sunset.jpg" alt="Hawaii beach banner"><div class="banner-fade"></div></div>
+      <div class="dayhead">
+        <div class="datewrap"><span class="dow">Wednesday</span><span class="date">Aug 5</span></div>
+        <span class="daytag">All Day</span>
+      </div>
+      <div class="cards">
+        <div class="card">
+          <div class="thumb"><img loading="lazy" src="assets/boat-bay.jpg" alt="Kaneohe Boat Tour"></div>
+          <div class="cap"><span class="time">8:00 AM</span><span class="title">Kaneohe Boat Tour</span></div>
+        </div><div class="arrow" aria-hidden="true">&#8594;</div>
+        <div class="card">
+          <div class="thumb"><img loading="lazy" src="assets/spam-musubi.jpg" alt="Musubis &amp; Ahi Wraps"></div>
+          <div class="cap"><span class="time">12:00 PM</span><span class="title">Musubis &amp; Ahi Wraps</span></div>
+        </div><div class="arrow" aria-hidden="true">&#8594;</div>
+        <div class="card">
+          <div class="thumb"><img loading="lazy" src="assets/luau-fire.jpg" alt="Luau – Sea Life Park"></div>
+          <div class="cap"><span class="time">2:30 PM</span><span class="title">Luau – Sea Life Park</span></div>
+        </div></div>
+      <div class="daybody"><div class="plan"><h4 class="plan-h">The Plan</h4><ul class="evlist"><li class="ev"><span class="ev-time">8:00 AM</span><span class="ev-body"><span class="ev-title">Kaneohe Boat Tour</span></span></li><li class="ev"><span class="ev-time">12:00 PM</span><span class="ev-body"><span class="ev-title">Musubis &amp; Ahi Wraps</span><ul class="subs"><li>Musubis</li><li>Ahi wraps</li></ul></span></li><li class="ev"><span class="ev-time">2:30 PM</span><span class="ev-body"><span class="ev-title">Luau – Sea Life Park</span></span></li></ul></div><div class="food"><h4 class="food-h">Eats</h4><ul class="meallist"><li class="meal"><span class="meal-k">Breakfast</span><span class="meal-v">Musubis or something otw to tour</span></li><li class="meal"><span class="meal-k">Lunch</span><span class="meal-v">Might eat on the boat</span></li><li class="meal"><span class="meal-k">Dinner</span><span class="meal-v">Luau</span></li></ul></div></div>
+    </section>
+    <section class="day">
+      <div class="banner"><img src="assets/header-beach-sunset.jpg" alt="Hawaii beach banner"><div class="banner-fade"></div></div>
+      <div class="dayhead">
+        <div class="datewrap"><span class="dow">Thursday</span><span class="date">Aug 6</span></div>
+        <span class="daytag">All Day</span>
+      </div>
+      <div class="cards">
+        <div class="card">
+          <div class="thumb"><img loading="lazy" src="assets/shark-cage.jpg" alt="Shark Cage Diving"></div>
+          <div class="cap"><span class="time">7:00 AM</span><span class="title">Shark Cage Diving</span></div>
+        </div><div class="arrow" aria-hidden="true">&#8594;</div>
+        <div class="card">
+          <div class="thumb"><img loading="lazy" src="assets/pineapple-plantation.jpg" alt="Dole Plantation &amp; Corn Maze"></div>
+          <div class="cap"><span class="time">9:00 AM</span><span class="title">Dole Plantation &amp; Corn Maze</span></div>
+        </div><div class="arrow" aria-hidden="true">&#8594;</div>
+        <div class="card">
+          <div class="thumb"><img loading="lazy" src="assets/haleiwa-bridge.jpg" alt="Haleiwa Town Walk"></div>
+          <div class="cap"><span class="time">11:00 AM</span><span class="title">Haleiwa Town Walk</span></div>
+        </div><div class="arrow" aria-hidden="true">&#8594;</div>
+        <div class="card">
+          <div class="thumb"><img loading="lazy" src="assets/header-beach-sunset.jpg" alt="Waimea Bay Beach Day"></div>
+          <div class="cap"><span class="time">2:30 PM</span><span class="title">Waimea Bay Beach Day</span></div>
+        </div></div>
+      <div class="daybody"><div class="plan"><h4 class="plan-h">The Plan</h4><ul class="evlist"><li class="ev"><span class="ev-time">7:00 AM</span><span class="ev-body"><span class="ev-title">Shark Cage Diving</span></span></li><li class="ev"><span class="ev-time">9:00 AM</span><span class="ev-body"><span class="ev-title">Dole Plantation &amp; Corn Maze</span><ul class="subs"><li>Dole Plantation</li><li>Corn maze</li></ul></span></li><li class="ev"><span class="ev-time">11:00 AM</span><span class="ev-body"><span class="ev-title">Haleiwa Town Walk</span></span></li><li class="ev"><span class="ev-time">2:30 PM</span><span class="ev-body"><span class="ev-title">Waimea Bay Beach Day</span></span></li></ul></div><div class="food"><h4 class="food-h">Eats</h4><ul class="meallist"><li class="meal"><span class="meal-k">Breakfast</span><span class="meal-v">Maybe musubis</span></li><li class="meal"><span class="meal-k">Lunch</span><span class="meal-v">Somewhere north</span></li><li class="meal"><span class="meal-k">Dinner</span><span class="meal-v">Likely to the north... of the wall</span></li></ul></div></div>
+    </section>
+    <section class="day">
+      <div class="banner"><img src="assets/header-beach-sunset.jpg" alt="Hawaii beach banner"><div class="banner-fade"></div></div>
+      <div class="dayhead">
+        <div class="datewrap"><span class="dow">Friday</span><span class="date">Aug 7</span></div>
+        <span class="daytag">All Day</span>
+      </div>
+      <div class="cards">
+        <div class="card">
+          <div class="thumb"><img loading="lazy" src="assets/kualoa-valley.jpg" alt="Kualoa Ranch E-Bike Tour"></div>
+          <div class="cap"><span class="time">8:30 AM</span><span class="title">Kualoa Ranch E-Bike Tour</span></div>
+        </div><div class="arrow" aria-hidden="true">&#8594;</div>
+        <div class="card">
+          <div class="thumb"><img loading="lazy" src="assets/tropical-meal.jpg" alt="East Side Lunch"></div>
+          <div class="cap"><span class="time">12:00 PM</span><span class="title">East Side Lunch</span></div>
+        </div><div class="arrow" aria-hidden="true">&#8594;</div>
+        <div class="card">
+          <div class="thumb"><img loading="lazy" src="assets/byodo-temple.jpg" alt="Byodo Temple"></div>
+          <div class="cap"><span class="time">2:00 PM</span><span class="title">Byodo Temple</span></div>
+        </div><div class="arrow" aria-hidden="true">&#8594;</div>
+        <div class="card">
+          <div class="thumb"><img loading="lazy" src="assets/tropical-meal.jpg" alt="Dinner"></div>
+          <div class="cap"><span class="time">6:30 PM</span><span class="title">Dinner</span></div>
+        </div><div class="arrow" aria-hidden="true">&#8594;</div>
+        <div class="card">
+          <div class="thumb"><img loading="lazy" src="assets/pregame-drinks.jpg" alt="Pregame"></div>
+          <div class="cap"><span class="time">8:00 PM</span><span class="title">Pregame</span></div>
+        </div><div class="arrow" aria-hidden="true">&#8594;</div>
+        <div class="card">
+          <div class="thumb"><img loading="lazy" src="assets/plane-landing-night.jpg" alt="Nick Lands"></div>
+          <div class="cap"><span class="time">9:10 PM</span><span class="title">Nick Lands</span></div>
+        </div><div class="arrow" aria-hidden="true">&#8594;</div>
+        <div class="card">
+          <div class="thumb"><img loading="lazy" src="assets/pregame-drinks.jpg" alt="Bars – Chinatown"></div>
+          <div class="cap"><span class="time">10:15 PM</span><span class="title">Bars – Chinatown</span></div>
+        </div></div>
+      <div class="daybody"><div class="plan"><h4 class="plan-h">The Plan</h4><ul class="evlist"><li class="ev"><span class="ev-time">8:30 AM</span><span class="ev-body"><span class="ev-title">Kualoa Ranch E-Bike Tour</span></span></li><li class="ev"><span class="ev-time">12:00 PM</span><span class="ev-body"><span class="ev-title">East Side Lunch</span></span></li><li class="ev"><span class="ev-time">2:00 PM</span><span class="ev-body"><span class="ev-title">Byodo Temple</span></span></li><li class="ev"><span class="ev-time">6:30 PM</span><span class="ev-body"><span class="ev-title">Dinner</span></span></li><li class="ev"><span class="ev-time">8:00 PM</span><span class="ev-body"><span class="ev-title">Pregame</span></span></li><li class="ev"><span class="ev-time">9:10 PM</span><span class="ev-body"><span class="ev-title">Nick Lands</span></span></li><li class="ev"><span class="ev-time">10:15 PM</span><span class="ev-body"><span class="ev-title">Bars – Chinatown</span></span></li></ul></div><div class="food"><h4 class="food-h">Eats</h4><ul class="meallist"><li class="meal"><span class="meal-k">Breakfast</span><span class="meal-v">Probably cook at home</span></li><li class="meal"><span class="meal-k">Lunch</span><span class="meal-v">East stuff</span></li><li class="meal"><span class="meal-k">Dinner</span><span class="meal-v">Could be Zippy&#x27;s or alcohol</span></li></ul></div></div>
+    </section>
+    <section class="day">
+      <div class="banner"><img src="assets/header-beach-sunset.jpg" alt="Hawaii beach banner"><div class="banner-fade"></div></div>
+      <div class="dayhead">
+        <div class="datewrap"><span class="dow">Saturday</span><span class="date">Aug 8</span></div>
+        
+      </div>
+      <div class="cards">
+        <div class="card">
+          <div class="thumb"><img loading="lazy" src="assets/west-coast-palms.jpg" alt="Head to West Side"></div>
+          <div class="cap"><span class="time">10:00 AM</span><span class="title">Head to West Side</span></div>
+        </div><div class="arrow" aria-hidden="true">&#8594;</div>
+        <div class="card">
+          <div class="thumb"><img loading="lazy" src="assets/tropical-meal.jpg" alt="Beachhouse 604"></div>
+          <div class="cap"><span class="time">11:30 AM</span><span class="title">Beachhouse 604</span></div>
+        </div><div class="arrow" aria-hidden="true">&#8594;</div>
+        <div class="card">
+          <div class="thumb"><img loading="lazy" src="assets/surfer-checking-waves.jpg" alt="Pray for Sets"></div>
+          <div class="cap"><span class="time">1:30 PM</span><span class="title">Pray for Sets</span></div>
+        </div><div class="arrow" aria-hidden="true">&#8594;</div>
+        <div class="card">
+          <div class="thumb"><img loading="lazy" src="assets/pillbox-sunset.jpg" alt="Sunset Hike – Pillbox"></div>
+          <div class="cap"><span class="time">5:30 PM</span><span class="title">Sunset Hike – Pillbox</span></div>
+        </div><div class="arrow" aria-hidden="true">&#8594;</div>
+        <div class="card">
+          <div class="thumb"><img loading="lazy" src="assets/pregame-drinks.jpg" alt="Pregame"></div>
+          <div class="cap"><span class="time">8:30 PM</span><span class="title">Pregame</span></div>
+        </div></div>
+      <div class="daybody"><div class="plan"><h4 class="plan-h">The Plan</h4><ul class="evlist"><li class="ev"><span class="ev-time">10:00 AM</span><span class="ev-body"><span class="ev-title">Head to West Side</span></span></li><li class="ev"><span class="ev-time">11:30 AM</span><span class="ev-body"><span class="ev-title">Beachhouse 604</span></span></li><li class="ev"><span class="ev-time">1:30 PM</span><span class="ev-body"><span class="ev-title">Pray for Sets</span></span></li><li class="ev"><span class="ev-time">5:30 PM</span><span class="ev-body"><span class="ev-title">Sunset Hike – Pillbox</span></span></li><li class="ev"><span class="ev-time">8:30 PM</span><span class="ev-body"><span class="ev-title">Pregame</span></span></li></ul></div><div class="food"><h4 class="food-h">Eats</h4><ul class="meallist"><li class="meal"><span class="meal-k">Breakfast</span><span class="meal-v">Cook or something</span></li><li class="meal"><span class="meal-k">Lunch</span><span class="meal-v">Beachhouse 604</span></li><li class="meal"><span class="meal-k">Dinner</span><span class="meal-v">Something</span></li></ul></div></div>
+    </section>
+    <section class="day">
+      <div class="banner"><img src="assets/header-beach-sunset.jpg" alt="Hawaii beach banner"><div class="banner-fade"></div></div>
+      <div class="dayhead">
+        <div class="datewrap"><span class="dow">Sunday</span><span class="date">Aug 9</span></div>
+        
+      </div>
+      <div class="cards">
+        <div class="card">
+          <div class="thumb"><img loading="lazy" src="assets/freediver-reef.jpg" alt="Spearfishing Sunday"></div>
+          <div class="cap"><span class="time">7:00 AM</span><span class="title">Spearfishing Sunday</span></div>
+        </div><div class="arrow" aria-hidden="true">&#8594;</div>
+        <div class="card">
+          <div class="thumb"><img loading="lazy" src="assets/surf.jpg" alt="North Shore Beach"></div>
+          <div class="cap"><span class="time">10:00 AM</span><span class="title">North Shore Beach</span></div>
+        </div><div class="arrow" aria-hidden="true">&#8594;</div>
+        <div class="card">
+          <div class="thumb"><img loading="lazy" src="assets/ko-olina-lagoon.jpg" alt="Ko Olina Walk + Food"></div>
+          <div class="cap"><span class="time">4:00 PM</span><span class="title">Ko Olina Walk + Food</span></div>
+        </div><div class="arrow" aria-hidden="true">&#8594;</div>
+        <div class="card">
+          <div class="thumb"><img loading="lazy" src="assets/plane-takeoff-sunset.jpg" alt="Aron Leaves"></div>
+          <div class="cap"><span class="time">10:30 PM</span><span class="title">Aron Leaves</span></div>
+        </div></div>
+      <div class="daybody"><div class="plan"><h4 class="plan-h">The Plan</h4><ul class="evlist"><li class="ev"><span class="ev-time">7:00 AM</span><span class="ev-body"><span class="ev-title">Spearfishing Sunday</span></span></li><li class="ev"><span class="ev-time">10:00 AM</span><span class="ev-body"><span class="ev-title">North Shore Beach</span></span></li><li class="ev"><span class="ev-time">4:00 PM</span><span class="ev-body"><span class="ev-title">Ko Olina Walk + Food</span><ul class="subs"><li>Lagoon walk</li><li>Food stop</li></ul></span></li><li class="ev"><span class="ev-time">10:30 PM</span><span class="ev-body"><span class="ev-title">Aron Leaves</span></span></li></ul></div><div class="food"><h4 class="food-h">Eats</h4><ul class="meallist"><li class="meal"><span class="meal-k">Breakfast</span><span class="meal-v">Leftovers or something</span></li><li class="meal"><span class="meal-k">Lunch</span><span class="meal-v">East shit or middle</span></li><li class="meal"><span class="meal-k">Dinner</span><span class="meal-v">Ko Olina</span></li></ul></div></div>
+    </section>
+    <section class="packing">
+      <h2>Packing List</h2>
+      <ul class="packlist"><li><span class="chk"></span>Sunscreen</li><li><span class="chk"></span>Swim suits &mdash; probably 3 (we have wash/dry)</li><li><span class="chk"></span>Water shoes</li><li><span class="chk"></span>Hiking shoes</li><li><span class="chk"></span>Shoes</li><li><span class="chk"></span>Slides (for beach or walking around)</li><li><span class="chk"></span>Sunglasses</li><li><span class="chk"></span>Going-out clothes &mdash; at least 2 outfits</li><li><span class="chk"></span>Toiletries</li></ul>
+    </section>
+    <section class="pricing">
+      <h2>Estimated Price Breakdown</h2>
+      <ul class="prlist"><li class="pr"><span class="pr-body"><span class="pr-name">Kualoa Ranch E-Bike Tour</span><span class="pr-note">Ultra E-Bike Tour</span></span><span class="pr-amt">$150.00</span></li><li class="pr"><span class="pr-body"><span class="pr-name">Shark Cage Diving</span></span><span class="pr-amt">$115.00</span></li><li class="pr"><span class="pr-body"><span class="pr-name">Kaneohe Sandbar Tour</span></span><span class="pr-amt">$152.00</span></li><li class="pr"><span class="pr-body"><span class="pr-name">Package</span><span class="pr-note">Bronze $134.99&nbsp; /&nbsp; Silver $174.99</span></span><span class="pr-amt">$134.99&ndash;$174.99</span></li><li class="pr"><span class="pr-body"><span class="pr-name">Spiderman Movie</span></span><span class="pr-amt">$18.50</span></li></ul>
+      <div class="prtotal"><span>Estimated Total</span><span class="prtotal-amt">$570.49 &ndash; $610.49</span></div>
+      <p class="prnote">Range reflects the Bronze vs. Silver package option. Estimates only &mdash; prices may vary.</p>
+    </section>
+    <footer>Photos licensed via Adobe Stock. Built for Josh &middot; Hawaii 2026.</footer>
+  </div>
+</body>
+</html>

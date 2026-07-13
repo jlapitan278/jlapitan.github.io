@@ -1,0 +1,2 @@
+User-agent: *
+Disallow: /hawaii-2026-c67c67b7.html
