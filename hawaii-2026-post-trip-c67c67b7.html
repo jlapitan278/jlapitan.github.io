@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<meta name="referrer" content="no-referrer">
+<title>Hawaii 2026 — Post Group Trip Fun</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ocean:#0e7c86; --ocean-d:#0a5b63; --coral:#ff6f4d; --sun:#ffb03a;
+    --sand:#fff8ee; --ink:#173040; --muted:#5c7480; --card:#ffffff;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:'Poppins',system-ui,Arial,sans-serif;color:var(--ink);
+    background:linear-gradient(180deg,#eef8f7 0%,var(--sand) 40%);}
+  .wrap{max-width:1100px;margin:0 auto;padding:0 22px 60px;}
+  .hero{position:relative;border-radius:0 0 26px 26px;overflow:hidden;margin-bottom:34px;
+    box-shadow:0 14px 34px rgba(14,124,134,.28);}
+  .hero img{width:100%;height:300px;object-fit:cover;object-position:center 58%;display:block;filter:saturate(1.05);}
+  .hero .veil{position:absolute;inset:0;background:
+    linear-gradient(0deg,rgba(5,52,58,.78) 0%,rgba(5,52,58,.40) 40%,rgba(5,52,58,0) 74%),
+    linear-gradient(90deg,rgba(10,91,99,.58),rgba(255,111,77,.22) 60%,transparent);}
+  .hero .htext{position:absolute;left:38px;bottom:28px;color:#fff;text-shadow:0 2px 16px rgba(0,0,0,.6);}
+  .hero .kicker{font-weight:600;letter-spacing:.32em;text-transform:uppercase;font-size:13px;opacity:.95;}
+  .hero h1{font-family:'Pacifico',cursive;font-weight:400;margin:.12em 0 .05em;font-size:56px;line-height:1;}
+  .hero .sub{font-size:16px;font-weight:500;opacity:.96;}
+  .pagelink{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;
+    background:var(--card);border-radius:16px;padding:14px 20px;margin:0 0 26px;
+    box-shadow:0 8px 22px rgba(23,48,64,.10);border:1px solid rgba(14,124,134,.08);}
+  .pl-text{font-weight:500;color:var(--muted);font-size:14px;}
+  .pl-text b{color:var(--ocean-d);font-weight:600;}
+  .pl-btn{display:inline-block;background:linear-gradient(135deg,var(--sun),var(--coral));color:#fff;
+    text-decoration:none;font-weight:600;font-size:12.5px;letter-spacing:.12em;text-transform:uppercase;
+    padding:10px 18px;border-radius:999px;box-shadow:0 4px 12px rgba(255,111,77,.32);white-space:nowrap;}
+  .day{background:var(--card);border-radius:20px;overflow:hidden;margin:0 0 26px;
+    box-shadow:0 8px 22px rgba(23,48,64,.10);border:1px solid rgba(14,124,134,.08);
+    page-break-inside:avoid;}
+  .banner{position:relative;height:74px;overflow:hidden;}
+  .banner img{width:100%;height:100%;object-fit:cover;object-position:center 62%;}
+  .banner-fade{position:absolute;inset:0;background:linear-gradient(90deg,rgba(14,124,134,.30),rgba(255,176,58,.20));}
+  .dayhead{display:flex;align-items:center;justify-content:space-between;padding:14px 22px 6px;}
+  .datewrap{display:flex;align-items:baseline;gap:12px;}
+  .dow{font-family:'Pacifico',cursive;color:var(--coral);font-size:26px;}
+  .date{font-weight:600;color:var(--ocean-d);font-size:17px;letter-spacing:.02em;}
+  .daytag{background:linear-gradient(135deg,var(--sun),var(--coral));color:#fff;font-weight:600;
+    font-size:12px;letter-spacing:.14em;text-transform:uppercase;padding:6px 13px;border-radius:999px;}
+  .daytag.open{background:linear-gradient(135deg,#8fc9ce,var(--ocean));}
+  .cards{display:flex;flex-wrap:wrap;gap:12px 10px;padding:10px 22px 14px;align-items:flex-start;}
+  .card{width:210px;background:#fff;border-radius:14px;overflow:hidden;
+    box-shadow:0 4px 12px rgba(23,48,64,.12);border:1px solid rgba(23,48,64,.06);}
+  .card.tbd{border-style:dashed;border-color:rgba(14,124,134,.30);box-shadow:none;}
+  .card.tbd .thumb img{filter:saturate(.55) opacity(.75);}
+  .thumb{width:100%;height:132px;overflow:hidden;background:#dfeceb;}
+  .thumb img{width:100%;height:100%;object-fit:cover;display:block;}
+  .cap{padding:9px 11px 11px;}
+  .time{display:block;font-weight:700;color:var(--coral);font-size:12.5px;letter-spacing:.04em;}
+  .card.tbd .time{color:var(--ocean);}
+  .title{display:block;font-weight:500;color:var(--ink);font-size:13.5px;line-height:1.28;margin-top:2px;}
+  .arrow{align-self:center;color:var(--ocean);font-size:26px;font-weight:700;padding-bottom:26px;opacity:.65;}
+  .daybody{display:flex;flex-wrap:wrap;gap:16px;margin:2px 22px 22px;align-items:stretch;}
+  .plan{flex:1.7 1 340px;padding:16px 20px 6px;background:#f6fbfa;border-radius:14px;
+    border:1px solid rgba(14,124,134,.10);}
+  .plan-h{margin:0 0 10px;font-family:'Pacifico',cursive;font-weight:400;color:var(--ocean-d);font-size:22px;}
+  .evlist{list-style:none;margin:0;padding:0;}
+  .ev{display:flex;gap:14px;padding:9px 0;border-top:1px dashed #e0e8e6;}
+  .ev:first-child{border-top:none;}
+  .ev-time{flex:0 0 84px;font-weight:700;color:var(--coral);font-size:13.5px;padding-top:1px;text-align:right;}
+  .ev.tbd .ev-time{color:var(--ocean);opacity:.8;}
+  .ev.tbd .ev-title{color:var(--muted);font-weight:500;font-style:italic;}
+  .ev-body{flex:1;}
+  .ev-title{font-weight:600;color:var(--ink);font-size:14.5px;}
+  .subs{margin:5px 0 0;padding-left:18px;color:var(--muted);font-size:13px;line-height:1.6;}
+  .subs li{margin:0;}
+  .food{flex:1 1 230px;padding:16px 20px;background:#fff5ec;border-radius:14px;
+    border:1px solid rgba(255,111,77,.16);}
+  .food-h{margin:0 0 10px;font-family:'Pacifico',cursive;font-weight:400;color:var(--coral);font-size:22px;}
+  .meallist{list-style:none;margin:0;padding:0;}
+  .meal{padding:8px 0;border-top:1px dashed #f0ded1;}
+  .meal:first-child{border-top:none;}
+  .meal-k{display:block;font-weight:700;color:var(--sun);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;}
+  .meal-v{display:block;color:var(--ink);font-size:14px;line-height:1.35;margin-top:1px;}
+  .meal-v.tbd{color:var(--muted);font-style:italic;}
+  .gap{display:flex;align-items:center;gap:14px;margin:0 0 26px;color:var(--muted);
+    font-size:13px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;}
+  .gap::before,.gap::after{content:"";flex:1;height:1px;background:repeating-linear-gradient(90deg,#cbd9d7 0 6px,transparent 6px 12px);}
+  footer{text-align:center;color:var(--muted);font-size:12px;margin-top:26px;}
+  @media (max-width:520px){ .hero h1{font-size:40px;} .card{width:calc(50% - 6px);} .arrow{display:none;} .ev-time{flex-basis:72px;} }
+  @media print{ body{background:#fff;} .day{box-shadow:none;border:1px solid #ddd;} }
+</style>
+</head>
+<body>
+  <div class="hero">
+    <img src="assets/west-coast-palms.jpg" alt="Palm trees along the Hawaii coast">
+    <div class="veil"></div>
+    <div class="htext">
+      <div class="kicker">Oahu &middot; The Leftovers Crew</div>
+      <h1>Post Group Trip Fun</h1>
+      <div class="sub">August 10 &ndash; 18</div>
+    </div>
+  </div>
+  <div class="wrap">
+
+    <div class="pagelink">
+      <span class="pl-text">Looking for the main trip? <b>July 31 &ndash; August 9</b> is on the original itinerary.</span>
+      <a class="pl-btn" href="hawaii-2026-c67c67b7.html">&#8592; Main Itinerary</a>
+    </div>
+
+    <section class="day">
+      <div class="banner"><img src="assets/header-beach-sunset.jpg" alt="Hawaii beach banner"><div class="banner-fade"></div></div>
+      <div class="dayhead">
+        <div class="datewrap"><span class="dow">Monday</span><span class="date">Aug 10</span></div>
+        <span class="daytag">Kona Departure</span>
+      </div>
+      <div class="cards">
+        <div class="card tbd">
+          <div class="thumb"><img loading="lazy" src="assets/west-coast-palms.jpg" alt="To be determined"></div>
+          <div class="cap"><span class="time">Daytime</span><span class="title">To be determined</span></div>
+        </div><div class="arrow" aria-hidden="true">&#8594;</div>
+        <div class="card">
+          <div class="thumb"><img loading="lazy" src="assets/plane-takeoff-sunset.jpg" alt="Christian and Nick fly to Kona"></div>
+          <div class="cap"><span class="time">5:15 PM</span><span class="title">Christian &amp; Nick Fly to Kona</span></div>
+        </div></div>
+      <div class="daybody"><div class="plan"><h4 class="plan-h">The Plan</h4><ul class="evlist"><li class="ev tbd"><span class="ev-time">Morning</span><span class="ev-body"><span class="ev-title">To be determined</span></span></li><li class="ev tbd"><span class="ev-time">Afternoon</span><span class="ev-body"><span class="ev-title">To be determined</span></span></li><li class="ev"><span class="ev-time">5:15 PM</span><span class="ev-body"><span class="ev-title">Christian and Nick flight leaves for Kona</span></span></li></ul></div><div class="food"><h4 class="food-h">Eats</h4><ul class="meallist"><li class="meal"><span class="meal-k">Breakfast</span><span class="meal-v tbd">To be determined</span></li><li class="meal"><span class="meal-k">Lunch</span><span class="meal-v tbd">To be determined</span></li><li class="meal"><span class="meal-k">Dinner</span><span class="meal-v tbd">To be determined</span></li></ul></div></div>
+    </section>
+
+    <section class="day">
+      <div class="banner"><img src="assets/header-beach-sunset.jpg" alt="Hawaii beach banner"><div class="banner-fade"></div></div>
+      <div class="dayhead">
+        <div class="datewrap"><span class="dow">Tuesday</span><span class="date">Aug 11</span></div>
+        <span class="daytag open">Wide Open</span>
+      </div>
+      <div class="cards">
+        <div class="card tbd">
+          <div class="thumb"><img loading="lazy" src="assets/surf.jpg" alt="To be determined"></div>
+          <div class="cap"><span class="time">Morning</span><span class="title">To be determined</span></div>
+        </div><div class="arrow" aria-hidden="true">&#8594;</div>
+        <div class="card tbd">
+          <div class="thumb"><img loading="lazy" src="assets/ko-olina-lagoon.jpg" alt="To be determined"></div>
+          <div class="cap"><span class="time">Afternoon</span><span class="title">To be determined</span></div>
+        </div><div class="arrow" aria-hidden="true">&#8594;</div>
+        <div class="card tbd">
+          <div class="thumb"><img loading="lazy" src="assets/tropical-meal.jpg" alt="To be determined"></div>
+          <div class="cap"><span class="time">Evening</span><span class="title">To be determined</span></div>
+        </div></div>
+      <div class="daybody"><div class="plan"><h4 class="plan-h">The Plan</h4><ul class="evlist"><li class="ev tbd"><span class="ev-time">Morning</span><span class="ev-body"><span class="ev-title">To be determined</span></span></li><li class="ev tbd"><span class="ev-time">Afternoon</span><span class="ev-body"><span class="ev-title">To be determined</span></span></li><li class="ev tbd"><span class="ev-time">Evening</span><span class="ev-body"><span class="ev-title">To be determined</span></span></li></ul></div><div class="food"><h4 class="food-h">Eats</h4><ul class="meallist"><li class="meal"><span class="meal-k">Breakfast</span><span class="meal-v tbd">To be determined</span></li><li class="meal"><span class="meal-k">Lunch</span><span class="meal-v tbd">To be determined</span></li><li class="meal"><span class="meal-k">Dinner</span><span class="meal-v tbd">To be determined</span></li></ul></div></div>
+    </section>
+
+    <section class="day">
+      <div class="banner"><img src="assets/header-beach-sunset.jpg" alt="Hawaii beach banner"><div class="banner-fade"></div></div>
+      <div class="dayhead">
+        <div class="datewrap"><span class="dow">Wednesday</span><span class="date">Aug 12</span></div>
+        <span class="daytag open">Wide Open</span>
+      </div>
+      <div class="cards">
+        <div class="card tbd">
+          <div class="thumb"><img loading="lazy" src="assets/hike-lush.jpg" alt="To be determined"></div>
+          <div class="cap"><span class="time">Morning</span><span class="title">To be determined</span></div>
+        </div><div class="arrow" aria-hidden="true">&#8594;</div>
+        <div class="card tbd">
+          <div class="thumb"><img loading="lazy" src="assets/boat-bay.jpg" alt="To be determined"></div>
+          <div class="cap"><span class="time">Afternoon</span><span class="title">To be determined</span></div>
+        </div><div class="arrow" aria-hidden="true">&#8594;</div>
+        <div class="card tbd">
+          <div class="thumb"><img loading="lazy" src="assets/pregame-drinks.jpg" alt="To be determined"></div>
+          <div class="cap"><span class="time">Evening</span><span class="title">To be determined</span></div>
+        </div></div>
+      <div class="daybody"><div class="plan"><h4 class="plan-h">The Plan</h4><ul class="evlist"><li class="ev tbd"><span class="ev-time">Morning</span><span class="ev-body"><span class="ev-title">To be determined</span></span></li><li class="ev tbd"><span class="ev-time">Afternoon</span><span class="ev-body"><span class="ev-title">To be determined</span></span></li><li class="ev tbd"><span class="ev-time">Evening</span><span class="ev-body"><span class="ev-title">To be determined</span></span></li></ul></div><div class="food"><h4 class="food-h">Eats</h4><ul class="meallist"><li class="meal"><span class="meal-k">Breakfast</span><span class="meal-v tbd">To be determined</span></li><li class="meal"><span class="meal-k">Lunch</span><span class="meal-v tbd">To be determined</span></li><li class="meal"><span class="meal-k">Dinner</span><span class="meal-v tbd">To be determined</span></li></ul></div></div>
+    </section>
+
+    <section class="day">
+      <div class="banner"><img src="assets/header-beach-sunset.jpg" alt="Hawaii beach banner"><div class="banner-fade"></div></div>
+      <div class="dayhead">
+        <div class="datewrap"><span class="dow">Thursday</span><span class="date">Aug 13</span></div>
+        <span class="daytag">Krystyn Departs</span>
+      </div>
+      <div class="cards">
+        <div class="card tbd">
+          <div class="thumb"><img loading="lazy" src="assets/market-stalls.jpg" alt="To be determined"></div>
+          <div class="cap"><span class="time">Daytime</span><span class="title">To be determined</span></div>
+        </div><div class="arrow" aria-hidden="true">&#8594;</div>
+        <div class="card">
+          <div class="thumb"><img loading="lazy" src="assets/plane-takeoff-day.jpg" alt="Krystyn&#x27;s flight leaves"></div>
+          <div class="cap"><span class="time">9:25 PM</span><span class="title">Krystyn&#x27;s Flight Leaves</span></div>
+        </div></div>
+      <div class="daybody"><div class="plan"><h4 class="plan-h">The Plan</h4><ul class="evlist"><li class="ev tbd"><span class="ev-time">Morning</span><span class="ev-body"><span class="ev-title">To be determined</span></span></li><li class="ev tbd"><span class="ev-time">Afternoon</span><span class="ev-body"><span class="ev-title">To be determined</span></span></li><li class="ev"><span class="ev-time">9:25 PM</span><span class="ev-body"><span class="ev-title">Krystyn&#x27;s flight leaves</span></span></li></ul></div><div class="food"><h4 class="food-h">Eats</h4><ul class="meallist"><li class="meal"><span class="meal-k">Breakfast</span><span class="meal-v tbd">To be determined</span></li><li class="meal"><span class="meal-k">Lunch</span><span class="meal-v tbd">To be determined</span></li><li class="meal"><span class="meal-k">Dinner</span><span class="meal-v tbd">To be determined</span></li></ul></div></div>
+    </section>
+
+    <div class="gap">Aug 14 &ndash; 15 not on this itinerary</div>
+
+    <section class="day">
+      <div class="banner"><img src="assets/header-beach-sunset.jpg" alt="Hawaii beach banner"><div class="banner-fade"></div></div>
+      <div class="dayhead">
+        <div class="datewrap"><span class="dow">Sunday</span><span class="date">Aug 16</span></div>
+        <span class="daytag">Christian Returns</span>
+      </div>
+      <div class="cards">
+        <div class="card tbd">
+          <div class="thumb"><img loading="lazy" src="assets/ala-moana-palms.jpg" alt="To be determined"></div>
+          <div class="cap"><span class="time">Daytime</span><span class="title">To be determined</span></div>
+        </div><div class="arrow" aria-hidden="true">&#8594;</div>
+        <div class="card">
+          <div class="thumb"><img loading="lazy" src="assets/plane-landing-day.jpg" alt="Christian arrives back in Oahu"></div>
+          <div class="cap"><span class="time">4:30 PM</span><span class="title">Christian Arrives Back in Oahu</span></div>
+        </div><div class="arrow" aria-hidden="true">&#8594;</div>
+        <div class="card tbd">
+          <div class="thumb"><img loading="lazy" src="assets/tropical-meal.jpg" alt="To be determined"></div>
+          <div class="cap"><span class="time">Evening</span><span class="title">To be determined</span></div>
+        </div></div>
+      <div class="daybody"><div class="plan"><h4 class="plan-h">The Plan</h4><ul class="evlist"><li class="ev tbd"><span class="ev-time">Morning</span><span class="ev-body"><span class="ev-title">To be determined</span></span></li><li class="ev"><span class="ev-time">4:30 PM</span><span class="ev-body"><span class="ev-title">Christian arrives back in Oahu</span></span></li><li class="ev tbd"><span class="ev-time">Evening</span><span class="ev-body"><span class="ev-title">To be determined</span></span></li></ul></div><div class="food"><h4 class="food-h">Eats</h4><ul class="meallist"><li class="meal"><span class="meal-k">Breakfast</span><span class="meal-v tbd">To be determined</span></li><li class="meal"><span class="meal-k">Lunch</span><span class="meal-v tbd">To be determined</span></li><li class="meal"><span class="meal-k">Dinner</span><span class="meal-v tbd">To be determined</span></li></ul></div></div>
+    </section>
+
+    <section class="day">
+      <div class="banner"><img src="assets/header-beach-sunset.jpg" alt="Hawaii beach banner"><div class="banner-fade"></div></div>
+      <div class="dayhead">
+        <div class="datewrap"><span class="dow">Monday</span><span class="date">Aug 17</span></div>
+        <span class="daytag open">Wide Open</span>
+      </div>
+      <div class="cards">
+        <div class="card tbd">
+          <div class="thumb"><img loading="lazy" src="assets/surfer-checking-waves.jpg" alt="To be determined"></div>
+          <div class="cap"><span class="time">Morning</span><span class="title">To be determined</span></div>
+        </div><div class="arrow" aria-hidden="true">&#8594;</div>
+        <div class="card tbd">
+          <div class="thumb"><img loading="lazy" src="assets/freediver-reef.jpg" alt="To be determined"></div>
+          <div class="cap"><span class="time">Afternoon</span><span class="title">To be determined</span></div>
+        </div><div class="arrow" aria-hidden="true">&#8594;</div>
+        <div class="card tbd">
+          <div class="thumb"><img loading="lazy" src="assets/pillbox-sunset.jpg" alt="To be determined"></div>
+          <div class="cap"><span class="time">Evening</span><span class="title">To be determined</span></div>
+        </div></div>
+      <div class="daybody"><div class="plan"><h4 class="plan-h">The Plan</h4><ul class="evlist"><li class="ev tbd"><span class="ev-time">Morning</span><span class="ev-body"><span class="ev-title">To be determined</span></span></li><li class="ev tbd"><span class="ev-time">Afternoon</span><span class="ev-body"><span class="ev-title">To be determined</span></span></li><li class="ev tbd"><span class="ev-time">Evening</span><span class="ev-body"><span class="ev-title">To be determined</span></span></li></ul></div><div class="food"><h4 class="food-h">Eats</h4><ul class="meallist"><li class="meal"><span class="meal-k">Breakfast</span><span class="meal-v tbd">To be determined</span></li><li class="meal"><span class="meal-k">Lunch</span><span class="meal-v tbd">To be determined</span></li><li class="meal"><span class="meal-k">Dinner</span><span class="meal-v tbd">To be determined</span></li></ul></div></div>
+    </section>
+
+    <section class="day">
+      <div class="banner"><img src="assets/header-beach-sunset.jpg" alt="Hawaii beach banner"><div class="banner-fade"></div></div>
+      <div class="dayhead">
+        <div class="datewrap"><span class="dow">Tuesday</span><span class="date">Aug 18</span></div>
+        <span class="daytag open">Wide Open</span>
+      </div>
+      <div class="cards">
+        <div class="card tbd">
+          <div class="thumb"><img loading="lazy" src="assets/peoples-choice-oahu.jpg" alt="To be determined"></div>
+          <div class="cap"><span class="time">Morning</span><span class="title">To be determined</span></div>
+        </div><div class="arrow" aria-hidden="true">&#8594;</div>
+        <div class="card tbd">
+          <div class="thumb"><img loading="lazy" src="assets/haleiwa-bridge.jpg" alt="To be determined"></div>
+          <div class="cap"><span class="time">Afternoon</span><span class="title">To be determined</span></div>
+        </div><div class="arrow" aria-hidden="true">&#8594;</div>
+        <div class="card tbd">
+          <div class="thumb"><img loading="lazy" src="assets/spam-musubi.jpg" alt="To be determined"></div>
+          <div class="cap"><span class="time">Evening</span><span class="title">To be determined</span></div>
+        </div></div>
+      <div class="daybody"><div class="plan"><h4 class="plan-h">The Plan</h4><ul class="evlist"><li class="ev tbd"><span class="ev-time">Morning</span><span class="ev-body"><span class="ev-title">To be determined</span></span></li><li class="ev tbd"><span class="ev-time">Afternoon</span><span class="ev-body"><span class="ev-title">To be determined</span></span></li><li class="ev tbd"><span class="ev-time">Evening</span><span class="ev-body"><span class="ev-title">To be determined</span></span></li></ul></div><div class="food"><h4 class="food-h">Eats</h4><ul class="meallist"><li class="meal"><span class="meal-k">Breakfast</span><span class="meal-v tbd">To be determined</span></li><li class="meal"><span class="meal-k">Lunch</span><span class="meal-v tbd">To be determined</span></li><li class="meal"><span class="meal-k">Dinner</span><span class="meal-v tbd">To be determined</span></li></ul></div></div>
+    </section>
+
+    <footer>Photos licensed via Adobe Stock. Built for Josh &middot; Hawaii 2026.</footer>
+  </div>
+</body>
+</html>
